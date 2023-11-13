@@ -1,0 +1,10 @@
+###
+POST http://localhost:9000/api/his HTTP/1.1
+Content-Type: application/json
+
+{
+    "nombre" : "NEIDER",
+    "stock_actual" : 45454,
+    "unidad_medida" : "LITROS",
+    "precio_unitario" : 453
+}
