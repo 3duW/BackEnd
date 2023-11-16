@@ -32,9 +32,9 @@ router.get("/cont/:id", (req, res) => {
 
 router.put("/cont/:id", (req, res) => {
   const { id } = req.params;
-  const { name, gmail, telefono, direccion,mensaje } = req.body;
+  const { name, gmail, telefono, direccion,mensaje  } = req.body;
   contSchema
-    .updateOne({ _id: id}, { $set: { name, gmail, telefono, direccion,mensaje } })
+    .updateOne({ _id: id}, { $set: { name, gmail, telefono, direccion,mensaje }})
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
