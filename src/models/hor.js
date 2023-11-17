@@ -14,4 +14,4 @@ const horSchema = mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model("hor",horSchema);
+module.exports = mongoose.model("Hor",horSchema);

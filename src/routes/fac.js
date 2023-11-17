@@ -1,49 +1,27 @@
 const express = require("express");
 const router = express.Router();
-const facSchema = require("../models/fac");
+const Fac = require("../models/fac"); 
 
-// Metodo post envia una nuevas entidades(Nuevos datos)
+// Método post para enviar una nueva factura
 router.post("/fac", (req, res) => {
-  const fac = facSchema(req.body);
-  fac
-    .save()
+  const nuevaFactura = new Fac(req.body); 
+  nuevaFactura
+  .save()
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
-
-//Metodo get para obtener todos los inventarios 
+// Método get para obtener todas las facturas
 router.get("/fac", (req, res) => {
-  facSchema
-    .find()
+  Fac.find()
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
 
-//Metodo get para encontrar la informacion mediante el id
-router.get("/fac/:id", (req, res) => {
-  const { id } = req.params;
-  facSchema
-    .findById(id)
-    .then((data) => res.json(data))
-    .catch((error) => res.json({ message: error }));
-});
+// Método para eliminar una factura por su número de factura
+router.delete("/fac/:num_factura", (req, res) => {
+  const { num_factura } = req.params;
 
-// Metodo put para actualizar al usuario
-
-router.put("/fac/:id", (req, res) => {
-  const { id } = req.params;
-  const { cliente, factura, monto, metodo_pago  } = req.body;
-  facSchema
-    .updateOne({ _id: id}, { $set: { cliente, factura, monto, metodo_pago } })
-    .then((data) => res.json(data))
-    .catch((error) => res.json({ message: error }));
-});
-// metodo elimiar 
- 
-router.delete("/fac/:id", (req, res) => {
-  const { id } = req.params;
-  facSchema
-    .deleteOne({ _id: id })
+  Fac.findOneAndDelete({ num_factura })
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });

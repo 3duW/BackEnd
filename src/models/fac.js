@@ -1,21 +1,25 @@
 const mongoose = require("mongoose");
 const facSchema = mongoose.Schema({
-    cliente:{
+    cliente: {
         type: String,
-        required: true,          
+        required: true,
     },
-    factura:{
-        type: Number,
-        required: true,           
-    },
-    monto:{
-        type: Number,
-        required: true,           
-    },
-    metodo_pago:{
+    num_factura: {
         type: String,
-        required: true,      
+        required: true,
     },
+    monto: {
+        type: Number,
+        required: true,
+    },
+    metodo_pago: {
+        type: String,
+        required: true,
+    },
+    fecha_emision: {
+        type: String,
+        require: true,
+    }
 });
 
-module.exports = mongoose.model("fac",facSchema);
+module.exports = mongoose.model("fac", facSchema);

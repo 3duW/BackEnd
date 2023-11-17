@@ -4,7 +4,6 @@ require("dotenv").config();
 const facRoutes = require("./routes/fac");
 const hisRoutes = require("./routes/his");
 const horRoutes = require("./routes/hor");
-const invRoutes = require("./routes/Inv");
 const contRoutes = require("./routes/cont");
 
 
@@ -17,7 +16,6 @@ app.use(express.json());
 app.use("/api" , facRoutes);
 app.use("/api" , hisRoutes);
 app.use("/api" , horRoutes);
-app.use("/api" , invRoutes);
 app.use("/api" , contRoutes);
 
  //route

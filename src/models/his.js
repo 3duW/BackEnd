@@ -5,10 +5,10 @@ const hisSchema = mongoose.Schema({
         required: true,          
     },
     fecha_pedido:{
-        type: Number,
+        type: String,
         required: true,           
     },
-    servicio:{
+    tipo_servicio:{
         type: String,
         required: true,           
     },

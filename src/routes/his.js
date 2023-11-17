@@ -1,51 +1,30 @@
 const express = require("express");
 const router = express.Router();
-const hisSchema = require("../models/his");
+const hisSchema = require("../models/his"); // Asegúrate de tener correctamente importado el modelo
 
-//Metodo post envia una nuevas entidades(Nuevos datos)
+// Método post para enviar un nuevo Historial del cliente
 router.post("/his", (req, res) => {
-  const his = hisSchema(req.body);
-  his
+  const nuevoHistorial = new His(req.body); // Usa el modelo 'His' para crear una nueva instancia
+  nuevoHistorial
     .save()
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
-//Metodo get para obtener todos los inventarios 
+
+// Método get para obtener todos los historiales
 router.get("/his", (req, res) => {
-  hisSchema
-    .find()
+  hisSchema.find()
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
 
-//Metodo get para encontrar la informacion mediante el id
-router.get("/his/:id", (req, res) => {
-  const { id } = req.params;
-  hisSchema
-    .findById(id)
-    .then((data) => res.json(data))
-    .catch((error) => res.json({ message: error }));
-});
+// Método para buscar el  historial por cliente/nombre
+router.get("/his/:cliente", (req, res) => {
+  const { cliente } = req.params;
 
-// Metodo put para actualizar al usuario
-
-router.put("/his/:id", (req, res) => {
-  const { id } = req.params;
-  const { cliente, fecha_pedido, servicio, estado_pedido  } = req.body;
-  hisSchema
-    .updateOne({ _id: id}, { $set: { cliente, fecha_pedido, servicio, estado_pedido } })
+  hisSchema.find({ cliente })
     .then((data) => res.json(data))
-    .catch((error) => res.json({ message: error }));
+    .catch((error) => res.json({ message: error.message }));
 });
-// metodo elimiar 
- 
-router.delete("/his/:id", (req, res) => {
-  const { id } = req.params;
-  hisSchema
-    .deleteOne({ _id: id })
-    .then((data) => res.json(data))
-    .catch((error) => res.json({ message: error }));
-});
-
 
 module.exports = router;
