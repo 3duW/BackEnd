@@ -11,7 +11,6 @@ router.post("/cont", (req, res) => {
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
-
 //Metodo get para buscar todas las informaciones 
 
 router.get("/cont", (req, res) => {
@@ -19,7 +18,6 @@ router.get("/cont", (req, res) => {
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
-
 //Metodo get para encontrar la informacion mediante el dni
 router.get("/cont/:dni", (req, res) => {
   const { dni } = req.params;
@@ -27,20 +25,12 @@ router.get("/cont/:dni", (req, res) => {
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
-// Metodo put para buscarlos mediante el dni y cambiar la direccion
-router.put("/cont/:dni/direccion", (req, res) => {
+// Metodo put para buscarlos mediante el dni y cambiar la direccion y el telofono
+router.put("/cont/:dni/direccion/telefono", (req, res) => {
   const { dni } = req.params;
-  const { direccion } = req.body;
+  const { direccion , telefono } = req.body;
 
-  cont.findOneAndUpdate({ direccion })
-    .then((data) => res.json(data))
-    .catch((error) => res.json({ message: error }));
-});
-// Metodo put para actualizar mediante telefono
-
-router.put("/cont/:telefono", (req, res) => {
-  const { telefono } = req.params;
-  cont.findOne({ telefono })
+  cont.findOneAndUpdate({ dni }, { direccion } , { telefono })
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
