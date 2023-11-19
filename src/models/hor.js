@@ -9,9 +9,9 @@ const horSchema = mongoose.Schema({
         required: true,           
     },
     horario:{
-        type: Number,
+        type: String,
         required: true,           
     },
 });
 
-module.exports = mongoose.model("Hor",horSchema);
+module.exports = mongoose.model("hor",horSchema);

@@ -32,4 +32,11 @@ router.get("/fac:num_factura", (req, res) => {
     .catch((error) => res.json({ message: error }));
 });
 
+// metodo DELETE mediante num_factura 
+router.delete("/fac/:dni", (req, res) => {
+  const { num_factura } = req.params;
+  fac.findOneAndDelete({ num_factura })
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error }));
+});
 module.exports = router;
