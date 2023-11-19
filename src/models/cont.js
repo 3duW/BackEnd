@@ -4,7 +4,7 @@ const contSchema = mongoose.Schema({
         type: String,
         required: true,          
     },
-    gmail:{
+    correo:{
         type: String,
         required: true,           
     },
@@ -12,11 +12,15 @@ const contSchema = mongoose.Schema({
         type: Number,
         required: true,           
     },
+    dni: {
+        type: Number,
+        required: true,
+    },
     direccion:{
         type: String,
         required: true,      
     },
-    mensaje:{
+    asunto:{
         type: String,
         required: true,      
     }
