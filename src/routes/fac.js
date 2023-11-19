@@ -17,17 +17,17 @@ router.get("/fac", (req, res) => {
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
-//Metodo para encontrar la informacion mediante factura
+//Metodo get para encontrar la informacion mediante factura
 router.get("/fac:num_factura", (req, res) => {
   const { num_factura } = req.params;
   fac.findOne({ num_factura })
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
-// Método para eliminar mediante el num_factura
-router.delete("/fac/:num_factura", (req, res) => {
+//Metodo put para buscarlo mediante num_facturacion y  cambiarl el monto y metodo_pago
+router.get("/fac:num_factura", (req, res) => {
   const { num_factura } = req.params;
-  fac.findOneAndDelete({ num_factura })
+  fac.findOne({ num_factura })
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });

@@ -4,6 +4,10 @@ const hisSchema = mongoose.Schema({
         type: String,
         required: true,          
     },
+    num_servicio:{
+        type: String,
+        required: true,          
+    },
     fecha_pedido:{
         type: String,
         required: true,           

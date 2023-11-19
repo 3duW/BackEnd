@@ -13,7 +13,6 @@ router.post("/hor", (req, res) => {
 //Metodo get para obtener todos los inventarios 
 
 
-
 //Metodo get para encontrar la informacion mediante el id
 
 // Metodo put para actualizar al usuario
