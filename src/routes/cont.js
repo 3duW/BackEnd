@@ -47,7 +47,7 @@ const contSchema = require("../models/cont");
  * @swagger
  * /api/cont:
  *   post:
- *     sumary: Guardar nuevos datos
+ *     summary: Guardar nuevos datos
  *     tags: 
  *       - Contacto
  *     requestBody:
@@ -73,7 +73,7 @@ router.post("/cont", (req, res) => {
  * @swagger
  * /api/cont:
  *   get:
- *     sumary: Mostrar todos los datos Guardados
+ *     summary: Mostrar todos los datos Guardados
  *     tags: 
  *       - Contacto
  *     responses:
@@ -85,6 +85,8 @@ router.post("/cont", (req, res) => {
  *               type: array
  *               items:
  *                 $ref: "#/components/schemas/Contacto"
+ *       404:
+ *         description: No se pudo Mostrar los Contactos :(
  */
 //Metodo get para Mastror toda la informacion guarda
 
@@ -99,7 +101,7 @@ router.get("/cont", (req, res) => {
  * @swagger
  * /api/cont/{dni}:
  *   get:
- *     sumary: Busca la información mediante el DNI
+ *     summary: Busca la información mediante el DNI
  *     tags: 
  *       - Contacto
  *     parameters:
@@ -134,7 +136,7 @@ router.get("/cont/:dni", (req, res) => {
  * @swagger
  * /api/cont/{dni}/direccion/telefono:
  *   put:
- *     sumary: Actualizar dirección y teléfono por DNI
+ *     summary: Actualizar dirección y teléfono por DNI
  *     tags:
  *       - Contacto
  *     parameters:
@@ -164,8 +166,6 @@ router.get("/cont/:dni", (req, res) => {
  *               $ref: "#/components/schemas/Contacto"
  *       404:
  *         description: Contacto no encontrado
- *       500:
- *         description: Error interno del servidor
  */
 // Metodo put para buscarlos mediante el dni y cambiar la direccion y el telofono
 router.put("/cont/:dni/direccion/telefono", (req, res) => {
