@@ -17,6 +17,10 @@ app.use("/api" , facRoutes);
 app.use("/api" , hisRoutes);
 app.use("/api" , horRoutes);
 app.use("/api" , contRoutes);
+app.use("/api" , comRoutes);
+app.use("/api" , invRoutes);
+app.use("/api" , maqRoutes);
+app.use("/api" , notRoutes);
 
  //route
 
