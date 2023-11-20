@@ -46,20 +46,19 @@ const contSchema = require("../models/cont");
 /**
  * @swagger
  * /api/cont:
- *  post: 
- *        sumary: Guardar nuevos datos
- *        tags: [Contacto]
- *        requestBody:
- *              required: true
- *              content:
- *                  application/json:
- *                       schema:
- *                            type: object
- *                       item:
- *                            $ref: "#components/schemas/Contacto"
- *        responses:
- *            200:
- *                description:  Contacto guardado
+ *   post:
+ *     sumary: Guardar nuevos datos
+ *     tags: 
+ *       - Contacto
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/Contacto"
+ *     responses:
+ *       200:
+ *         description: Contacto guardado
  */
 // Metodo post para guardar nuevos datos
 router.post("/cont", (req, res) => {
@@ -73,18 +72,19 @@ router.post("/cont", (req, res) => {
 /**
  * @swagger
  * /api/cont:
- *  get: 
- *        sumary: Mostrar todos los datos Guardados
- *        tags: [Contacto]
- *        responses:
- *            200:
- *                description:  Muestra los contactos Guardados
- *                content:
- *                    application/json:
- *                         schema:
- *                              type: array
- *                         items:
- *                              $ref: "#components/schemas/Contacto"
+ *   get:
+ *     sumary: Mostrar todos los datos Guardados
+ *     tags: 
+ *       - Contacto
+ *     responses:
+ *       200:
+ *         description: Muestra los contactos Guardados
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: "#/components/schemas/Contacto"
  */
 //Metodo get para Mastror toda la informacion guarda
 
@@ -98,11 +98,28 @@ router.get("/cont", (req, res) => {
 /**
  * @swagger
  * /api/cont/{dni}:
- *  get:
- *       sumary:  Busca la informacion mediante el DNI
- *       tags:  [Contacto]
- *       parameters:
- *           - in:  path
+ *   get:
+ *     sumary: Busca la información mediante el DNI
+ *     tags: 
+ *       - Contacto
+ *     parameters:
+ *       - in: path
+ *         name: dni
+ *         schema:
+ *           type: number
+ *         required: true
+ *         description: Buscar mediante el DNI al contacto
+ *     responses:
+ *       200:
+ *         description: Contacto Encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               item:
+ *                 $ref: "#/components/schemas/Contacto"
+ *       404:
+ *         description: No Existe el DNI 
  */
 
 //Metodo get para encontrar la informacion mediante el dni
@@ -112,12 +129,50 @@ router.get("/cont/:dni", (req, res) => {
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
+
+/**
+ * @swagger
+ * /api/cont/{dni}/direccion/telefono:
+ *   put:
+ *     sumary: Actualizar dirección y teléfono por DNI
+ *     tags:
+ *       - Contacto
+ *     parameters:
+ *       - in: path
+ *         name: dni
+ *         schema:
+ *           type: number
+ *         required: true
+ *         description: DNI del contacto a actualizar
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               telefono:
+ *                 type: number
+ *               direccion:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Contacto actualizado correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Contacto"
+ *       404:
+ *         description: Contacto no encontrado
+ *       500:
+ *         description: Error interno del servidor
+ */
 // Metodo put para buscarlos mediante el dni y cambiar la direccion y el telofono
 router.put("/cont/:dni/direccion/telefono", (req, res) => {
   const { dni } = req.params;
-  const { direccion , telefono } = req.body;
+  const { telefono, direccion } = req.body;
 
-  contSchema.findOneAndUpdate({ dni }, { direccion } , { telefono })
+  contSchema.findOneAndUpdate({ dni }, { telefono, direccion })
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
