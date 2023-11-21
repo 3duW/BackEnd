@@ -6,6 +6,9 @@ const facRoutes = require("./routes/fac");
 const hisRoutes = require("./routes/his");
 const horRoutes = require("./routes/hor");
 const contRoutes = require("./routes/cont");
+const pedido = require("./routes/Pedi");
+const programacion = require("./routes/Prog");
+const promocion = require("./routes/Promo");
 const swaggerUI  = require("swagger-ui-express");
 const swaggerJSDoc = require("swagger-jsdoc");
 const path = require("path");
@@ -35,6 +38,9 @@ app.use("/api" , facRoutes);
 app.use("/api" , hisRoutes);
 app.use("/api" , horRoutes);
 app.use("/api" , contRoutes);
+app.use("/api", pedido);
+app.use("/api", programacion);
+app.use("/api", promocion);
 
  //route
 
