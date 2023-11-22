@@ -18,8 +18,8 @@ const hisSchema = mongoose.Schema({
     },
     estado_pedido:{
         type: String,
-        required: true,      
-    },
+        required: true,
+    }
 });
 
 module.exports = mongoose.model("his",hisSchema);
