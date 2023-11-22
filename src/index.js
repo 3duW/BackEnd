@@ -6,9 +6,16 @@ const facRoutes = require("./routes/fac");
 const hisRoutes = require("./routes/his");
 const horRoutes = require("./routes/hor");
 const contRoutes = require("./routes/cont");
+<<<<<<< HEAD
 const pedido = require("./routes/Pedi");
 const programacion = require("./routes/planifica");
 const promocion = require("./routes/Promo");
+=======
+const inventRoutes = require("./routes/invent");
+const maquiRoutes = require("./routes/maqui");
+const comentRoutes = require("./routes/coment");
+const notifRoutes = require("./routes/notif");
+>>>>>>> 8295a1a3678cfbe447d142688e345463cc0db951
 const swaggerUI  = require("swagger-ui-express");
 const swaggerJSDoc = require("swagger-jsdoc");
 const path = require("path");
@@ -38,9 +45,16 @@ app.use("/api" , facRoutes);
 app.use("/api" , hisRoutes);
 app.use("/api" , horRoutes);
 app.use("/api" , contRoutes);
+<<<<<<< HEAD
 app.use("/api", pedido);
 app.use("/api", programacion);
 app.use("/api", promocion);
+=======
+app.use("/api" , comentRoutes);
+app.use("/api" , inventRoutes);
+app.use("/api" , maquiRoutes);
+app.use("/api" , notifRoutes);
+>>>>>>> 8295a1a3678cfbe447d142688e345463cc0db951
 
  //route
 

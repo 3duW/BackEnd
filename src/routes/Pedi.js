@@ -9,9 +9,9 @@ const router = express.Router();
  *     Pedido:
  *       type: object
  *       properties:
- *         num_pedido:
+ *         num_pedidos:
  *           type: string
- *           description: Número de pedido
+ *           description: Número de pedidos
  *         fecha_pedido:
  *           type: string
  *           format: date
@@ -32,13 +32,13 @@ const router = express.Router();
  *               cantidad:
  *                 type: number
  *       required:
- *         - num_pedido
+ *         - num_pedidos
  *         - fecha_pedido
  *         - tipo_servicio
  *         - estado
  *         - articulos
  *       example:
- *         num_pedido: "12345"
+ *         num_pedidos: "12345"
  *         fecha_pedido: "2023-11-20"
  *         tipo_servicio: "Servicio X"
  *         estado: "Pendiente"
@@ -73,79 +73,52 @@ router.get("/pedi", (req, res) => {
     .catch((error) => res.json({ message: error }));
 });
 
-// Método get para obtener pedidos por estado
+
+// Método get para obtener pedidos por num_pedido
 /**
  * @swagger
- * /api/pedi/estado/{estado}:
+ * /api/pedi/num_pedidos/{num_pedidos}:
  *   get:
- *     summary: Obtener pedidos por estado
+ *     summary: Obtener pedidos por num_pedido
  *     tags:
  *       - Pedidos
  *     parameters:
  *       - in: path
- *         name: estado
+ *         name: num_pedidos
  *         schema:
  *           type: string
  *         required: true
- *         description: Estado del pedido a buscar
+ *         description: Número de pedidos a buscar
  *     responses:
  *       200:
- *         description: Devuelve los pedidos correspondientes al estado proporcionado
+ *         description: Devuelve los pedidos correspondientes al num_pedidos proporcionado
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: "#/components/schemas/Pedido"
+ *                 $ref: "#/components/schemas/Pedidos"
  */
-router.get("/pedi/estado/:estado", (req, res) => {
-  const { estado } = req.params;
-  PediSchema.find({ estado })
+router.get("/pedi/num_pedidos/:num_pedidos", (req, res) => {
+  const { num_pedidos } = req.params;
+  PediSchema.find({ num_pedidos })
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
 
-// Crear un nuevo pedido
-/**
- * @swagger
- * /api/pedi:
- *   post:
- *     summary: Crear un nuevo pedido
- *     tags:
- *       - Pedidos
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: "#/components/schemas/Pedido"
- *     responses:
- *       200:
- *         description: Pedido creado correctamente
- *         content:
- *           application/json:
- *             schema:
- *               $ref: "#/components/schemas/Pedido"
- */
-router.post("/pedi", (req, res) => {
-  const nuevoPedido = new PediSchema(req.body);
-  nuevoPedido
-    .save()
-    .then((data) => res.json(data))
-    .catch((error) => res.json({ message: error }));
-});
+// ...
 
 // Actualizar un pedido existente
 /**
  * @swagger
- * /api/pedi/{num_pedido}:
+ * /api/pedi/{num_pedidos}:
  *   put:
  *     summary: Actualizar un pedido existente
  *     tags:
  *       - Pedidos
  *     parameters:
  *       - in: path
- *         name: num_pedido
+ *         name: num_pedidos
  *         schema:
  *           type: string
  *         required: true
@@ -155,7 +128,32 @@ router.post("/pedi", (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/Pedido"
+ *             type: object
+ *             properties:
+ *               fecha_pedido:
+ *                 type: string
+ *                 format: date
+ *                 description: Fecha del pedido
+ *               tipo_servicio:
+ *                 type: string
+ *                 description: Tipo de servicio
+ *               estado:
+ *                 type: string
+ *                 description: Estado del pedido
+ *               articulos:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     nombre:
+ *                       type: string
+ *                     cantidad:
+ *                       type: number
+ *             required:
+ *               - fecha_pedido
+ *               - tipo_servicio
+ *               - estado
+ *               - articulos
  *     responses:
  *       200:
  *         description: Pedido actualizado correctamente
@@ -164,12 +162,20 @@ router.post("/pedi", (req, res) => {
  *             schema:
  *               $ref: "#/components/schemas/Pedido"
  */
-router.put("/pedi/:num_pedido", (req, res) => {
-  const { num_pedido } = req.params;
-  PediSchema.findByIdAndUpdate(num_pedido, req.body)
+router.put("/pedi/:num_pedidos", (req, res) => {
+  const { num_pedidos } = req.params;
+  const { fecha_pedido, tipo_servicio, estado, articulos } = req.body;
+
+  PediSchema.findOneAndUpdate(
+    { num_pedidos },
+    { fecha_pedido, tipo_servicio, estado, articulos },
+    { new: true }
+  )
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
+
+// ...
 
 // Método para eliminar pedidos
 /**
@@ -192,11 +198,16 @@ router.put("/pedi/:num_pedido", (req, res) => {
  *       404:
  *         description: Pedido no encontrado
  */
-router.delete("/pedi/:num_pedido", (req, res) => {
-  const { num_pedido } = req.params;
-  PediSchema.findByIdAndDelete(num_pedido)
-    .then((data) => res.json(data))
+router.delete("/pedi/:num_pedidos", (req, res) => {
+  const { num_pedidos } = req.params;
+
+  PediSchema.findOneAndDelete({ num_pedidos })
+    .then((data) => {
+      if (!data) {
+        return res.status(404).json({ message: "Pedido no encontrado" });
+      }
+      res.json({ message: "Pedido eliminado correctamente", deletedData: data });
+    })
     .catch((error) => res.json({ message: error }));
 });
-
 module.exports = router;

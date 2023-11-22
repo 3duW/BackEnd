@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const pediSchema = mongoose.Schema({
      
-    num_pedido:{
+    num_pedidos:{
         type:String,
         require:true
     },
@@ -20,9 +20,8 @@ const pediSchema = mongoose.Schema({
     },
     articulos: [
         {
-            nombre: String,
-            cantidad: Number,
-           
+            nombre: { type: String },
+            cantidad: { type: Number }
         }
     ]
 });

@@ -2,6 +2,14 @@ const mongoose = require("mongoose");
 
 const progSchema = mongoose.Schema({
     
+    cliente:{
+         type: String,
+         required:true,
+    },
+    dni: {
+        type: String,
+        required: true,
+    },
     fecha_recogida: {
         type: Date,
         required: true,
@@ -20,4 +28,4 @@ const progSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model("Programación", progSchema);
+module.exports = mongoose.model("Planificaciones", progSchema);

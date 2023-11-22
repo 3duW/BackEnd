@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const comSchema = require("../models/his"); // Asegúrate de tener correctamente importado el modelo
+const comSchema = require("../models/com"); // Asegúrate de tener correctamente importado el modelo
 
 // Método post para enviar un nuevo Historial del cliente
 router.post("/com", (req, res) => {
@@ -13,16 +13,16 @@ router.post("/com", (req, res) => {
 
 // Método get para obtener todos los historiales
 router.get("/com", (req, res) => {
-  hisSchema.find()
+  comSchema.find()
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
 
 // Método para buscar el  historial por cliente/nombre
-router.get("/his/:cliente", (req, res) => {
-  const { cliente } = req.params;
+router.get("/com/:cliente_id", (req, res) => {
+  const { cliente_id } = req.params;
 
-  comSchema.find({ cliente })
+  comSchema.find({ cliente_id })
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error.message }));
 });

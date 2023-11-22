@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 
 const promoSchema = mongoose.Schema({
-    nombre: {
+    numero_de_promocion: {
+        type: String,
+        required: true,
+    },
+    nombre_promo: {
         type: String,
         required: true,
     },
