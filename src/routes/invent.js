@@ -7,7 +7,7 @@ const router = express.Router();
  * @swagger
  * components:
  *  schemas:
- *      recursos:
+ *      inventario:
  *              type: object
  *              properties:
  *                  tipo:
@@ -32,9 +32,9 @@ const router = express.Router();
  *                  -   periodo
  *                  -   cantidad
  *              example:
- *                  tipo: sillas
- *                  marca:  lenovo
- *                  modelo: V750
+ *                  tipo:   Secadora industrial
+ *                  marca:  vamatex
+ *                  modelo: SX-3000
  *                  periodo:    2015
  *                  cantidad:   3
  *                  
@@ -50,10 +50,10 @@ const router = express.Router();
 //get
 /**
  * @swagger
- * /api/recursos:
+ * /api/inventario:
  *  get:
  *      summary:    Muestra todo el inventario
- *      tags:   [recursos]
+ *      tags:   [inventario]
  *      responses:
  *          200:
  *              description: inventario mostrado correctamente
@@ -62,11 +62,11 @@ const router = express.Router();
  *                      schema:
  *                          type:   array
  *                      items:
- *                          $ref:   '#components/schemas/recursos'
+ *                          $ref:   '#components/schemas/inventario'
  *          404:
  *              description:    No se puede mostrar el inventario
  */
-router.get("/recursos", (req, res) => {
+router.get("/inventario", (req, res) => {
     inventmodel.find()
         .then(data => res.json(data))
         .catch((error) => res.json({mensaje: error}))
@@ -76,11 +76,11 @@ router.get("/recursos", (req, res) => {
 
 /**
  * @swagger
- * /api/recursos/{marca}/{modelo}:
+ * /api/inventario/{marca}/{modelo}:
  *   get:
  *     summary: Obtener recursos por marca y modelo.
  *     tags:
- *       - recursos
+ *       - inventario
  *     parameters:
  *       - in: path
  *         name: marca
@@ -100,13 +100,13 @@ router.get("/recursos", (req, res) => {
  *         content:
  *           application/json:
  *             schema:
- *              $ref:   '#components/schemas/recursos'
+ *              $ref:   '#components/schemas/inventario'
  *       404:
  *         description: No se encontraron productos.
 */
 
 //get: Busqueda de producto por marca y modelo
-router.get("/recursos/:marca/:modelo?", (req, res) => {
+router.get("/inventario/:marca/:modelo?", (req, res) => {
     const { marca, modelo } = req.params;
 
     // Construir el objeto de consulta con marca y modelo
@@ -131,24 +131,24 @@ router.get("/recursos/:marca/:modelo?", (req, res) => {
 //post
 /**
  * @swagger
- * /api/recursos:
+ * /api/inventario:
  *   post:
  *     summary: Crear una nuevo ingreso de producto
  *     tags:
- *       - recursos
+ *       - inventario
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/recursos"
+ *             $ref: "#/components/schemas/inventario"
  *     responses:
  *       201:
  *         description: Nuevo producto creada e inventariado exitosamente
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/recursos"
+ *               $ref: "#/components/schemas/inventario"
  *       400:
  *         description: Solicitud no válida
  */
@@ -156,7 +156,7 @@ router.get("/recursos/:marca/:modelo?", (req, res) => {
 
 
 //post - Crear usuario
-router.post("/recursos", (req, res) =>{
+router.post("/inventario", (req, res) =>{
     const recurso = inventmodel(req.body);
     recurso.save()
     .then((data)=>res.json({mensaje:"Objeto guardado correctamente"}))
@@ -166,11 +166,11 @@ router.post("/recursos", (req, res) =>{
 //put
 /**
  * @swagger
- * /api/recursos/{modelo}:
+ * /api/inventario/{modelo}:
  *   put:
  *     summary: Modificar monto y método de pago de una factura por número de factura
  *     tags:
- *       - recursos
+ *       - inventario
  *     parameters:
  *       - in: path
  *         name: modelo
@@ -197,7 +197,7 @@ router.post("/recursos", (req, res) =>{
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/recursos"
+ *               $ref: "#/components/schemas/inventario"
  *       404:
  *         description: Producto no encontrado
  *       500:
@@ -205,7 +205,7 @@ router.post("/recursos", (req, res) =>{
  */
 
 //put
-router.put("/recursos/:modelo", (req, res) => {
+router.put("/inventario/:modelo", (req, res) => {
     const { modelo } = req.params;
     const { periodo, cantidad } = req.body;
 
