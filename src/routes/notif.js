@@ -55,7 +55,7 @@ const router = express.Router();
  *                      schema:
  *                          type:   array
  *                      items:
- *                          $ref:   '#components/schemas/recursos'
+ *                          $ref:   '#components/schemas/notificaciones'
  *          404:
  *              description:    No se puede mostrar el inventario
  */
@@ -90,7 +90,7 @@ router.get("/notificaciones", (req, res) => {
  *             schema:
  *               type: array
  *               item:
- *                 $ref: "#/components/schemas/Contacto"
+ *                 $ref: "#/components/schemas/notificaciones"
  *       404:
  *         description: No Existe el num_cliente 
  */

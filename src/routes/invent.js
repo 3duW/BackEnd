@@ -7,7 +7,7 @@ const router = express.Router();
  * @swagger
  * components:
  *  schemas:
- *      registro:
+ *      inventarios:
  *              type: object
  *              properties:
  *                  tipo:
@@ -32,7 +32,7 @@ const router = express.Router();
  *                  -   periodo
  *                  -   cantidad
  *              example:
- *                  tipo:   Secadora 
+ *                  tipo:   Secadora Industrial
  *                  marca:  vamatex
  *                  modelo: SX-3000
  *                  periodo:    2015
@@ -50,10 +50,10 @@ const router = express.Router();
 //get
 /**
  * @swagger
- * /api/registro:
+ * /api/inventarios:
  *  get:
  *      summary:    Muestra todo el inventario
- *      tags:   [registro]
+ *      tags:   [inventarios]
  *      responses:
  *          200:
  *              description: inventario mostrado correctamente
@@ -62,11 +62,11 @@ const router = express.Router();
  *                      schema:
  *                          type:   array
  *                      items:
- *                          $ref:   '#components/schemas/registro'
+ *                          $ref:   '#components/schemas/inventarios'
  *          404:
- *              description:    No se puede mostrar el registro
+ *              description:    No se puede mostrar el inventario
  */
-router.get("/registro", (req, res) => {
+router.get("/inventarios", (req, res) => {
     inventmodel.find()
         .then(data => res.json(data))
         .catch((error) => res.json({mensaje: error}))
@@ -76,11 +76,11 @@ router.get("/registro", (req, res) => {
 
 /**
  * @swagger
- * /api/registro/{marca}/{modelo}:
+ * /api/inventarios/{marca}/{modelo}:
  *   get:
  *     summary: Obtener recursos por marca y modelo.
  *     tags:
- *       - registro
+ *       - inventarios
  *     parameters:
  *       - in: path
  *         name: marca
@@ -93,20 +93,20 @@ router.get("/registro", (req, res) => {
  *         schema:
  *           type: string
  *         required: false
- *         description: Modelo de los recursos (opcional).
+ *         description: Modelo de los productos (opcional).
  *     responses:
  *       200:
  *         description: Éxito. Devuelve la lista de recursos.
  *         content:
  *           application/json:
  *             schema:
- *              $ref:   '#components/schemas/registro'
+ *              $ref:   '#components/schemas/inventarios'
  *       404:
- *         description: No se encontraron productos.
+ *         description: No se encontraron los productos.
 */
 
 //get: Busqueda de producto por marca y modelo
-router.get("/registro/:marca/:modelo?", (req, res) => {
+router.get("/inventarios/:marca/:modelo?", (req, res) => {
     const { marca, modelo } = req.params;
 
     // Construir el objeto de consulta con marca y modelo
@@ -131,24 +131,24 @@ router.get("/registro/:marca/:modelo?", (req, res) => {
 //post
 /**
  * @swagger
- * /api/registro:
+ * /api/inventarios:
  *   post:
  *     summary: Crear una nuevo ingreso de producto
  *     tags:
- *       - registro
+ *       - inventarios
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/registro"
+ *             $ref: "#/components/schemas/inventarios"
  *     responses:
  *       201:
  *         description: Nuevo producto creada e inventariado exitosamente
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/registro"
+ *               $ref: "#/components/schemas/inventarios"
  *       400:
  *         description: Solicitud no válida
  */
@@ -156,7 +156,7 @@ router.get("/registro/:marca/:modelo?", (req, res) => {
 
 
 //post - Crear usuario
-router.post("/registro", (req, res) =>{
+router.post("/inventarios", (req, res) =>{
     const inventa = inventmodel(req.body);
     inventa.save()
     .then((data)=>res.json({mensaje:"Objeto guardado correctamente"}))
@@ -166,11 +166,11 @@ router.post("/registro", (req, res) =>{
 //put
 /**
  * @swagger
- * /api/registro/{modelo}:
+ * /api/inventarios/{modelo}:
  *   put:
- *     summary: Modificar monto y método de pago de una factura por número de factura
+ *     summary: Se actualiza el estado de los productos.
  *     tags:
- *       - registro
+ *       - inventarios
  *     parameters:
  *       - in: path
  *         name: modelo
@@ -197,7 +197,7 @@ router.post("/registro", (req, res) =>{
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/registro"
+ *               $ref: "#/components/schemas/inventarios"
  *       404:
  *         description: Producto no encontrado
  *       500:
@@ -205,7 +205,7 @@ router.post("/registro", (req, res) =>{
  */
 
 //put
-router.put("/registro/:modelo", (req, res) => {
+router.put("/inventarios/:modelo", (req, res) => {
     const { modelo } = req.params;
     const { periodo, cantidad } = req.body;
 

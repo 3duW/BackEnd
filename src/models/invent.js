@@ -25,4 +25,4 @@ const inventmodel = mongoose.Schema({
 
 
  
-module.exports = mongoose.model("registro", inventmodel);
+module.exports = mongoose.model("inventarios", inventmodel);
