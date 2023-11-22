@@ -55,10 +55,10 @@ const router = express.Router();
  *                      items:
  *                          $ref:   '#components/schemas/maquinas'
  *          404:
- *              description:    No se puede mostrar el inventario
+ *              description:    No se puede mostrar el tipo de equipo
  */
 
-//get: Busqueda de equipo por marca y ult_mant
+//get: Busqueda de equipo por marca y ultimo mantenimiento
 router.get("/maquinas", (req, res) => {
     maquimodel.find()
         .then(data => res.json(data))
@@ -93,7 +93,7 @@ router.get("/maquinas", (req, res) => {
  *             schema:
  *              $ref:   '#components/schemas/maquinas'
  *       404:
- *         description: No se encontraron productos.
+ *         description: No se puede mostrar el tipo de equipo.
 */
 
 //get: Busqueda de producto por marca y modelo
