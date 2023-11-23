@@ -68,7 +68,48 @@ router.get("/plani", (req, res) => {
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
-
+// Ruta PUT para actualizar una planificación por DNI
+/**
+ * @swagger
+ * /api/plani/{dni}:
+ *   put:
+ *     summary: Actualizar una planificación existente
+ *     tags:
+ *       - Planificacion
+ *     parameters:
+ *       - in: path
+ *         name: dni
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Número de dni a actualizar
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/PlanificacionUpdate"
+ *     responses:
+ *       200:
+ *         description: Planificación actualizada correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Planificacion"
+ *       404:
+ *         description: La planificación no fue encontrada o no se pudo actualizar
+ */
+router.put("/plani/dni/:dni", (req, res) => {
+  const { dni } = req.params;
+  const { cliente, fecha_recogida, hora_recogida, fecha_entrega, hora_entrega } = req.body;
+  PlaniSchema.findOneAndUpdate(
+    { dni },
+    { cliente, fecha_recogida, hora_recogida, fecha_entrega, hora_entrega },
+    { new: true }
+  )
+    .then((data) => res.json({ mensaje: "Cambios realizados correctamente en la planificación" }))
+    .catch((error) => res.status(404).json({ message: "La planificación no fue encontrada o no se pudo actualizar" }));
+});
 /**
  * @swagger
  * /api/plani/dni/{dni}:
@@ -124,12 +165,41 @@ router.get("/plani/dni/:dni", (req, res) => {
  *       400:
  *         description: La solicitud es incorrecta o está incompleta.
  */
-router.post("/plani/crea", (req, res) => {
+router.post("/plani", (req, res) => {
   const nuevaPlanificacion = new PlaniSchema(req.body);
   nuevaPlanificacion
     .save()
-    .then((data) => res.status(201).json(data))
-    .catch((error) => res.status(400).json({ message: error }));
+    .then((data) => res.status(201).json({dato:"dato agregado correctamente"}))
+    .catch((error) => res.status(400).json({ message: "no se encontraron los datos " }));
 });
+
+// Ruta DELETE para eliminar una planificación por DNI
+/**
+ * @swagger
+ * /api/plani/{dni}:
+ *   delete:
+ *     summary: Eliminar Planificacion por número de dni
+ *     tags:
+ *       - Planificacion
+ *     parameters:
+ *       - in: path
+ *         name: dni
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: numero de dni de la Planificacion a eliminar
+ *     responses:
+ *       200:
+ *         description: Planificacion eliminada correctamente
+ *       404:
+ *         description: La Planificacion no fue encontrada
+ */
+router.delete("/plani/:dni", (req, res) => {
+  const { dni } = req.params;
+  PlaniSchema.findOneAndDelete({ dni })
+  .then((data) => res.json({ mensaje: "La planificación fue eliminada correctamente" }))
+   .catch((error) => res.status(404).json({ message: "La planificación no fue encontrada o no se pudo eliminar" }));
+});
+
 
 module.exports = router;

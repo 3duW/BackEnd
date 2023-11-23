@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const progSchema = mongoose.Schema({
+const PlaniSchema = mongoose.Schema({
     
     cliente:{
          type: String,
@@ -28,4 +28,4 @@ const progSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model("Planificaciones", progSchema);
+module.exports = mongoose.model("Planificaciones", PlaniSchema);

@@ -9,7 +9,7 @@ const PromoSchema = require("../models/Promociones");
  *     Promocion:
  *       type: object
  *       properties:
- *         numero_de_promocion:
+ *         nombre_promocion:
  *           type: string
  *           description: Número de promoción
  *         nombre_promo:
@@ -28,13 +28,13 @@ const PromoSchema = require("../models/Promociones");
  *           description: Fecha de fin de la promoción
  *       required:
  *         - numero_de_promocion
- *         - nombre_promo
+ *         - nombre_promocion
  *         - descripcion
  *         - fecha_inicio
  *         - fecha_fin
  *       example:
  *         numero_de_promocion: "p-0001"
- *         nombre_promo: "Promoción de verano"
+ *         nombre_promocion: "Promoción de verano"
  *         descripcion: "Descuento del 20% en todos los productos"
  *         fecha_inicio: "2023-11-01"
  *         fecha_fin: "2023-11-30"
@@ -114,14 +114,12 @@ router.get("/promo/numero/:numero_de_promocion", (req, res) => {
  *             schema:
  *               $ref: "#/components/schemas/Promociones"
  */
-router.post("/promo", (req, res) => {
-  const { numero_de_promocion, nombre_promocion, descripcion, fecha_inicio, fecha_fin } = req.body;
-  const PromoSchema = new PromoSchema({ numero_de_promocion, nombre_promocion, descripcion, fecha_inicio, fecha_fin });
-  PromoSchema
-    .save()
-    .then((data) => res.status(201).json(data))
-    .catch((error) => res.status(400).json({ message: error }));
-});
+router.post("/promo", (req, res) =>{
+  const promocion = PromoSchema(req.body);
+  promocion.save()
+  .then((data)=>res.json({mensaje:"Objeto guardado correctamente"}))
+  .catch((error)=>res.status({mensaje:error}))
+})
 
 /**
  * @swagger
@@ -153,13 +151,13 @@ router.post("/promo", (req, res) => {
  */
 router.put("/promo/numero/:numero_de_promocion", (req, res) => {
   const { numero_de_promocion } = req.params;
-  const { nombre_promo, descripcion, fecha_inicio, fecha_fin } = req.body;
+  const { nombre_promocion, descripcion, fecha_inicio, fecha_fin } = req.body;
   PromoSchema.findOneAndUpdate(
     { numero_de_promocion },
-    { nombre_promo, descripcion, fecha_inicio, fecha_fin },
+    { nombre_promocion, descripcion, fecha_inicio, fecha_fin },
     { new: true }
   )
-    .then((data) => res.json(data))
+    .then((data) => res.json({mensaje: "se modificaron los cambios correspondientes"}))
     .catch((error) => res.json({ message: error }));
 });
 
@@ -186,7 +184,7 @@ router.put("/promo/numero/:numero_de_promocion", (req, res) => {
 router.delete("/promo/numero/:numero_de_promocion", (req, res) => {
   const { numero_de_promocion } = req.params;
   PromoSchema.findOneAndDelete({ numero_de_promocion })
-    .then((data) => res.json(data))
+    .then((data) => res.json({mensaje:"la promocion fue eliminada correctamente"}))
     .catch((error) => res.status(404).json({ message: error }));
 });
 

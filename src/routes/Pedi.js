@@ -12,6 +12,9 @@ const router = express.Router();
  *         num_pedidos:
  *           type: string
  *           description: Número de pedidos
+ *         cliente: 
+ *           type: string 
+ *           description: nombre del cliente
  *         fecha_pedido:
  *           type: string
  *           format: date
@@ -32,12 +35,14 @@ const router = express.Router();
  *               cantidad:
  *                 type: number
  *       required:
+ *         - cliente
  *         - num_pedidos
  *         - fecha_pedido
  *         - tipo_servicio
  *         - estado
  *         - articulos
  *       example:
+ *         cliente: "nombre"
  *         num_pedidos: "12345"
  *         fecha_pedido: "2023-11-20"
  *         tipo_servicio: "Servicio X"
@@ -130,6 +135,9 @@ router.get("/pedi/num_pedidos/:num_pedidos", (req, res) => {
  *           schema:
  *             type: object
  *             properties:
+ *               cliente: 
+ *                 type: string
+ *                 description: nombre del cliente 
  *               fecha_pedido:
  *                 type: string
  *                 format: date
@@ -150,6 +158,7 @@ router.get("/pedi/num_pedidos/:num_pedidos", (req, res) => {
  *                     cantidad:
  *                       type: number
  *             required:
+ *               - cliente
  *               - fecha_pedido
  *               - tipo_servicio
  *               - estado
@@ -180,14 +189,14 @@ router.put("/pedi/:num_pedidos", (req, res) => {
 // Método para eliminar pedidos
 /**
  * @swagger
- * /api/pedi/{num_pedido}:
+ * /api/pedi/{num_pedidos}:
  *   delete:
  *     summary: Eliminar un pedido
  *     tags:
  *       - Pedidos
  *     parameters:
  *       - in: path
- *         name: num_pedido
+ *         name: num_pedidos
  *         schema:
  *           type: string
  *         required: true
@@ -200,14 +209,8 @@ router.put("/pedi/:num_pedidos", (req, res) => {
  */
 router.delete("/pedi/:num_pedidos", (req, res) => {
   const { num_pedidos } = req.params;
-
   PediSchema.findOneAndDelete({ num_pedidos })
-    .then((data) => {
-      if (!data) {
-        return res.status(404).json({ message: "Pedido no encontrado" });
-      }
-      res.json({ message: "Pedido eliminado correctamente", deletedData: data });
-    })
-    .catch((error) => res.json({ message: error }));
+    .then((data) => res.json({mensaje:"la colecion fue eliminada correctamente"}))
+    .catch((error) => res.status(404).json({ message: error }));
 });
 module.exports = router;

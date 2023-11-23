@@ -1,7 +1,10 @@
 const mongoose = require("mongoose");
 
 const pediSchema = mongoose.Schema({
-     
+    cliente:{
+        type:String,
+        require:true
+    },
     num_pedidos:{
         type:String,
         require:true

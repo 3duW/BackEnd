@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
-const promoSchema = mongoose.Schema({
+const PromoSchema = mongoose.Schema({
     numero_de_promocion: {
         type: String,
         required: true,
     },
-    nombre_promo: {
+    nombre_promocion: {
         type: String,
         required: true,
     },
@@ -23,4 +23,4 @@ const promoSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model("Promociones", promoSchema);
+module.exports = mongoose.model("Promociones", PromoSchema);
