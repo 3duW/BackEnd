@@ -61,7 +61,7 @@ const router = express.Router();
 
 
 //get
-router.get("/comen", (req, res) => {
+router.get("/comentarios", (req, res) => {
     comentmodel.find()
         .then(data => res.json(data))
         .catch((error) => res.json({mensaje: error}))
@@ -96,7 +96,7 @@ router.get("/comen", (req, res) => {
 
 
 //post - Crear usuario
-router.post("/comen", (req, res) =>{
+router.post("/comentarios", (req, res) =>{
     const comentar = comentmodel(req.body);
     comentar.save()
     .then((data)=>res.json({mensaje:"Objeto guardado correctamente"}))

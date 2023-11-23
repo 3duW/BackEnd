@@ -56,7 +56,7 @@ const router = express.Router();
  */
 
 //get: Busqueda de la máquina por marca y último mantenimiento
-router.get("/maqui", (req, res) => {
+router.get("/maquinas", (req, res) => {
     maquimodel.find()
         .then(data => res.json(data))
         .catch((error) => res.json({mensaje: error}))
@@ -95,7 +95,7 @@ router.get("/maqui", (req, res) => {
 */
 
 //get: Busqueda de la máquina por marca y modelo
-router.get("/maqui/:marca/:ult_mant?", (req, res) => {
+router.get("/maquinas/:marca/:ult_mant?", (req, res) => {
     const { marca, ult_mant } = req.params;
 
     // Construir el objeto de consulta con marca y modelo
@@ -143,7 +143,7 @@ router.get("/maqui/:marca/:ult_mant?", (req, res) => {
  */
 
 //post
-router.post("/maqui", (req, res) =>{
+router.post("/maquinas", (req, res) =>{
     const maquina = maquimodel(req.body);
     maquina.save()
     .then((data)=>res.json({mensaje:"Objeto guardado correctamente"}))
@@ -193,7 +193,7 @@ router.post("/maqui", (req, res) =>{
 
 
 //put
-router.put("/maqui/:marca", (req, res) => {
+router.put("/maquinas/:marca", (req, res) => {
     const { marca } = req.params;
     const { estado, ult_mant } = req.body;
 

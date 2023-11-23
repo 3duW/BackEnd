@@ -22,4 +22,4 @@ const comentmodel = mongoose.Schema({
 
 
  
-module.exports = mongoose.model("comentario", comentmodel);
+module.exports = mongoose.model("comentarios", comentmodel);

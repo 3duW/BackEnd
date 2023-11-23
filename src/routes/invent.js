@@ -66,7 +66,7 @@ const router = express.Router();
  *          404:
  *              description:    No se puede mostrar el inventario
  */
-router.get("/inv", (req, res) => {
+router.get("/inventarios", (req, res) => {
     inventmodel.find()
         .then(data => res.json(data))
         .catch((error) => res.json({mensaje: error}))
@@ -106,7 +106,7 @@ router.get("/inv", (req, res) => {
 */
 
 //get: Busqueda de producto por marca y modelo
-router.get("/inv/:marca/:modelo?", (req, res) => {
+router.get("/inventarios/:marca/:modelo?", (req, res) => {
     const { marca, modelo } = req.params;
 
     // Construir el objeto de consulta con marca y modelo
@@ -156,7 +156,7 @@ router.get("/inv/:marca/:modelo?", (req, res) => {
 
 
 //post - Crear usuario
-router.post("/inv", (req, res) =>{
+router.post("/inventarios", (req, res) =>{
     const inventa = inventmodel(req.body);
     inventa.save()
     .then((data)=>res.json({mensaje:"Objeto guardado correctamente"}))
@@ -205,7 +205,7 @@ router.post("/inv", (req, res) =>{
  */
 
 //put
-router.put("/inv/:modelo", (req, res) => {
+router.put("/inventarios/:modelo", (req, res) => {
     const { modelo } = req.params;
     const { periodo, cantidad } = req.body;
 
