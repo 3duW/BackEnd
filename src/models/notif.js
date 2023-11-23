@@ -22,4 +22,4 @@ const notifmodel = mongoose.Schema({
 
 
  
-module.exports = mongoose.model("noti", notifmodel);
+module.exports = mongoose.model("notificaciones", notifmodel);

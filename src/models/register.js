@@ -1,28 +1,28 @@
 const mongoose = require("mongoose")
 
-const inventmodel = mongoose.Schema({
-    tipo:{
+const registerSchema = mongoose.Schema({
+    nombres_completos:{
         type: String,
         require: true
     },
-    marca:{
+    telefono:{
         type: String,
         require: true
     },
-    modelo:{
+    dni:{
         type: String,
         require: true
     },
-    periodo:{
+    Correo_Electronico:{
         type: String,
         require: true
     },
-    cantidad:{
-        type: Number,
-        require: true, 
-    }
+    contraseña:{
+        type: String,
+        require: true,
+    }     
 });
 
 
  
-module.exports = mongoose.model("inventarios", inventmodel);
+module.exports = mongoose.model("registros", registerSchema);

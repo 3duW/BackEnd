@@ -6,7 +6,7 @@ const PromoSchema = require("../models/Prom");
  * @swagger
  * components:
  *   schemas:
- *     Promocion:
+ *     promociones:
  *       type: object
  *       properties:
  *         nombre_promocion:
@@ -43,11 +43,11 @@ const PromoSchema = require("../models/Prom");
 // Obtener todas las promociones
 /**
  * @swagger
- * /api/promo:
+ * /api/promociones:
  *   get:
  *     summary: Obtener todas las promociones
  *     tags:
- *       - Promociones
+ *       - promociones
  *     responses:
  *       200:
  *         description: Devuelve todas las promociones
@@ -56,9 +56,9 @@ const PromoSchema = require("../models/Prom");
  *             schema:
  *               type: array
  *               items:
- *                 $ref: "#/components/schemas/Promociones"
+ *                 $ref: "#/components/schemas/promociones"
  */
-router.get("/promo", (req, res) => {
+router.get("/promociones", (req, res) => {
   PromoSchema.find()
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
@@ -66,11 +66,11 @@ router.get("/promo", (req, res) => {
 
 /**
  * @swagger
- * /api/promo/numero/{numero_de_promocion}:
+ * /api/promociones/{numero_de_promocion}:
  *   get:
  *     summary: Obtener promociones por número de promoción
  *     tags:
- *       - Promociones
+ *       - promociones
  *     parameters:
  *       - in: path
  *         name: numero_de_promocion
@@ -84,9 +84,9 @@ router.get("/promo", (req, res) => {
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Promociones"
+ *               $ref: "#/components/schemas/promociones"
  */
-router.get("/promo/numero/:numero_de_promocion", (req, res) => {
+router.get("/promociones/:numero_de_promocion", (req, res) => {
   const { numero_de_promocion } = req.params;
   PromoSchema.find({ numero_de_promocion })
     .then((data) => res.json(data))
@@ -95,26 +95,26 @@ router.get("/promo/numero/:numero_de_promocion", (req, res) => {
 
 /**
  * @swagger
- * /api/promo:
+ * /api/promociones:
  *   post:
  *     summary: Crear nueva promoción
  *     tags:
- *       - Promociones
+ *       - promociones
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/Promociones"
+ *             $ref: "#/components/schemas/promociones"
  *     responses:
  *       201:
  *         description: Nueva promoción creada correctamente
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Promociones"
+ *               $ref: "#/components/schemas/promociones"
  */
-router.post("/promo", (req, res) =>{
+router.post("/promociones", (req, res) =>{
   const promocion = PromoSchema(req.body);
   promocion.save()
   .then((data)=>res.json({mensaje:"Objeto guardado correctamente"}))
@@ -123,11 +123,11 @@ router.post("/promo", (req, res) =>{
 
 /**
  * @swagger
- * /api/promo/numero/{numero_de_promocion}:
+ * /api/promociones/numero/{numero_de_promocion}:
  *   put:
  *     summary: Actualizar promoción por número de promoción
  *     tags:
- *       - Promociones
+ *       - promociones
  *     parameters:
  *       - in: path
  *         name: numero_de_promocion
@@ -140,16 +140,16 @@ router.post("/promo", (req, res) =>{
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/Promociones"
+ *             $ref: "#/components/schemas/promociones"
  *     responses:
  *       200:
  *         description: Promoción actualizada correctamente
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Promociones"
+ *               $ref: "#/components/schemas/promociones"
  */
-router.put("/promo/numero/:numero_de_promocion", (req, res) => {
+router.put("/promociones/numero/:numero_de_promocion", (req, res) => {
   const { numero_de_promocion } = req.params;
   const { nombre_promocion, descripcion, fecha_inicio, fecha_fin } = req.body;
   PromoSchema.findOneAndUpdate(
@@ -163,11 +163,11 @@ router.put("/promo/numero/:numero_de_promocion", (req, res) => {
 
 /**
  * @swagger
- * /api/promo/numero/{numero_de_promocion}:
+ * /api/promociones/numero/{numero_de_promocion}:
  *   delete:
  *     summary: Eliminar promoción por número de promoción
  *     tags:
- *       - Promociones
+ *       - promociones
  *     parameters:
  *       - in: path
  *         name: numero_de_promocion
@@ -181,7 +181,7 @@ router.put("/promo/numero/:numero_de_promocion", (req, res) => {
  *       404:
  *         description: La promoción no fue encontrada
  */
-router.delete("/promo/numero/:numero_de_promocion", (req, res) => {
+router.delete("/promociones/numero/:numero_de_promocion", (req, res) => {
   const { numero_de_promocion } = req.params;
   PromoSchema.findOneAndDelete({ numero_de_promocion })
     .then((data) => res.json({mensaje:"la promocion fue eliminada correctamente"}))
