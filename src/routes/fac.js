@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const facSchema = require("../models/fac");
-const fac = require("../models/fac");
 
 /**
  *  @swagger
@@ -126,7 +125,7 @@ router.get("/fac", (req, res) => {
 //Metodo get para encontrar la informacion mediante factura
 router.get("/fac/:num_factura", (req, res) => {
   const { num_factura } = req.params;
-  fac.findOne({ num_factura })
+  facSchema.findOne({ num_factura })
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
