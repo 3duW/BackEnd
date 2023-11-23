@@ -62,7 +62,7 @@ const router = express.Router();
 
 
 //get: Busqueda General
-router.get("/notificaciones", (req, res) => {
+router.get("/noti", (req, res) => {
     notifmodel.find()
         .then(data => res.json(data))
         .catch((error) => res.json({mensaje: error}))
@@ -97,7 +97,7 @@ router.get("/notificaciones", (req, res) => {
 
 
 //get: Busqueda por num_cliente
-router.get("/notificaciones/:num_cliente", (req, res) => {
+router.get("/noti/:num_cliente", (req, res) => {
     const {num_cliente} = req.params;
     notifmodel.findOne({num_cliente})
         .then(data => res.json(data))
@@ -133,7 +133,7 @@ router.get("/notificaciones/:num_cliente", (req, res) => {
 
 
 //post
-router.post("/notificaciones", (req, res) =>{
+router.post("/noti", (req, res) =>{
     const notifica = notifmodel(req.body);
     notifica.save()
     .then((data)=>res.json({mensaje:"Objeto guardado correctamente"}))
@@ -186,7 +186,7 @@ router.post("/notificaciones", (req, res) =>{
 
 
 //put
-router.put("/notificaciones/:num_cliente", (req, res) => {
+router.put("/noti/:num_cliente", (req, res) => {
     const {num_cliente} = req.params;
     const { tipo_alerta, mensaje, servicio } = req.body;
 
@@ -224,7 +224,7 @@ router.put("/notificaciones/:num_cliente", (req, res) => {
 
 
 //delete
-router.delete("/notificaciones/:num_cliente", (req, res) => {
+router.delete("/noti/:num_cliente", (req, res) => {
     const {num_cliente}=req.params;
     notifmodel.deleteOne({num_cliente})
     .then((data)=>res.json({mensaje:"objeto eliminado"}))

@@ -7,21 +7,23 @@ const sumiRoutes = require("./routes/sumi");
 const hisRoutes = require("./routes/his");
 const horRoutes = require("./routes/hor");
 const contRoutes = require("./routes/cont");
-const pedido = require("./routes/Pedi");
-const Planificacion = require("./routes/planifica");
-const promocion = require("./routes/Promo");
+const pediRoutes = require("./routes/Pedi");
+const PlaniRoutes = require("./routes/plani");
+const promoRoutes = require("./routes/Promo");
 const inventRoutes = require("./routes/invent");
 const maquiRoutes = require("./routes/maqui");
 const comentRoutes = require("./routes/coment");
 const notifRoutes = require("./routes/notif");
-const delivRoutes = require("./routes/delivery");
+const delivRoutes = require("./routes/deliv");
 const swaggerUI  = require("swagger-ui-express");
 const swaggerJSDoc = require("swagger-jsdoc");
 const path = require("path");
 
+
 //configuracion
 const app = express();
 const port = process.env.PORT || 9000;
+
 const swaggerConf = {
     definition: {
         openapi: "3.0.0",
@@ -45,9 +47,9 @@ app.use("/api" , hisRoutes);
 app.use("/api" , horRoutes);
 app.use("/api" , contRoutes);
 app.use("/api" , sumiRoutes);
-app.use("/api", pedido);
-app.use("/api", Planificacion);
-app.use("/api", promocion);
+app.use("/api", pediRoutes);
+app.use("/api", PlaniRoutes);
+app.use("/api", promoRoutes);
 app.use("/api" , comentRoutes);
 app.use("/api" , delivRoutes);
 app.use("/api" , inventRoutes);

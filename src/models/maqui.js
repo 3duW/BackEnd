@@ -21,4 +21,4 @@ const maquimodel = mongoose.Schema({
 });
 
 
-module.exports = mongoose.model("maquinas", maquimodel);
+module.exports = mongoose.model("maqui", maquimodel);

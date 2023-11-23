@@ -25,4 +25,4 @@ const inventmodel = mongoose.Schema({
 
 
  
-module.exports = mongoose.model("inventarios", inventmodel);
+module.exports = mongoose.model("inventario", inventmodel);

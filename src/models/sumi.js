@@ -22,4 +22,4 @@ const sumSchema = mongoose.Schema({
     ]
 });
 
-module.exports = mongoose.model("Suministro", sumSchema);
+module.exports = mongoose.model("Sumi", sumSchema);

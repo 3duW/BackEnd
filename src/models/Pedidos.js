@@ -29,4 +29,4 @@ const pediSchema = mongoose.Schema({
     ]
 });
 
-module.exports = mongoose.model("Pedidos", pediSchema);
+module.exports = mongoose.model("Pedi", pediSchema);

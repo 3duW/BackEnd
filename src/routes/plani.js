@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const PlaniSchema = require("../models/Planificacion");
+const PlaniSchema = require("../models/Plani");
 
 /**
  * @swagger

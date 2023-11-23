@@ -28,4 +28,4 @@ const PlaniSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model("Planificaciones", PlaniSchema);
+module.exports = mongoose.model("Plani", PlaniSchema);
