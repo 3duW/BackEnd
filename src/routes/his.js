@@ -3,41 +3,40 @@ const router = express.Router();
 const hisSchema = require("../models/his");
 
 /**
- *  @swagger
- *  components:
- *    schemas:
- *        Historial:
- *              type: object
- *              properties:   
- *                  cliente:
- *                      type: String
- *                      description:  Nombre del cliente
- *                  num_servicio:
- *                      type: String
- *                      description:  Numero del servicio
- *                  fecha_pedido:
- *                      type: string
- *                      description:  Fecha que se realizo el pedido
- *                  tipo_servicio:
- *                      type: string
- *                      description:  Tipo de Servicio
- *                  estado_pedido:
- *                      type: string
- *                      description:  Etapa del pedido
- *              required:
- *                  - cliente
- *                  - num_servicio
- *                  - fecha_pedido
- *                  - tipo_Servicio
- *                  - estado_pedido
- *              example:
- *                  cliente:  ROBERT
- *                  num_servicio: L-234
- *                  fecha_pedido: 2023-01-04
- *                  tipo_Servicio:  Lavado en seco 
- *                  estado_pedido:  Proceso
- */  
-
+ * @swagger
+ * components:
+ *   schemas:
+ *     Historial:
+ *       type: object
+ *       properties:
+ *         cliente:
+ *           type: string
+ *           description: Nombre del cliente
+ *         num_servicio:
+ *           type: string
+ *           description: Número del servicio
+ *         fecha_pedido:
+ *           type: string
+ *           description: Fecha en que se realizó el pedido
+ *         tipo_servicio:
+ *           type: string
+ *           description: Tipo de Servicio
+ *         estado_pedido:
+ *           type: string
+ *           description: Etapa del pedido
+ *       required:
+ *         - cliente
+ *         - num_servicio
+ *         - fecha_pedido
+ *         - tipo_servicio
+ *         - estado_pedido
+ *       example:
+ *         cliente: eduardo
+ *         num_servicio: l-345
+ *         fecha_pedido: '2023-11-23'
+ *         tipo_servicio: lavado de alfombra
+ *         estado_pedido: pendiente
+ */
 
 /**
  * @swagger
@@ -60,13 +59,12 @@ const hisSchema = require("../models/his");
  *             schema:
  *               $ref: "#/components/schemas/Historial"
  *       400:
- *         description: No se encontro el Historial
+ *         description: No se encontró el Historial
  */
 // Metodo POST para enviar un nuevo Historial del cliente
 router.post("/his", (req, res) => {
   const his = hisSchema(req.body); 
-  his
-  .save()
+  his.save()
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
