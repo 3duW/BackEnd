@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const PromoSchema = require("../models/Promociones");
+const PromoSchema = require("../models/Prom");
 
 /**
  * @swagger
