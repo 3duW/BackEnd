@@ -6,7 +6,7 @@ const router = express.Router();
  * @swagger
  * components:
  *   schemas:
- *     Pedido:
+ *     pedidos:
  *       type: object
  *       properties:
  *         num_pedidos:
@@ -57,11 +57,11 @@ const router = express.Router();
 // Mostrar todos los pedidos
 /**
  * @swagger
- * /api/pedi:
+ * /api/pedidos:
  *   get:
  *     summary: Mostrar todos los pedidos
  *     tags:
- *       - Pedidos
+ *       - pedidos
  *     responses:
  *       200:
  *         description: Devuelve todos los pedidos
@@ -70,9 +70,9 @@ const router = express.Router();
  *             schema:
  *               type: array
  *               items:
- *                 $ref: "#/components/schemas/Pedido"
+ *                 $ref: "#/components/schemas/pedidos"
  */
-router.get("/pedi", (req, res) => {
+router.get("/pedidos", (req, res) => {
   PediSchema.find()
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
@@ -82,11 +82,11 @@ router.get("/pedi", (req, res) => {
 // Método get para obtener pedidos por num_pedido
 /**
  * @swagger
- * /api/pedi/num_pedidos/{num_pedidos}:
+ * /api/pedidos/num_pedidos/{num_pedidos}:
  *   get:
  *     summary: Obtener pedidos por num_pedido
  *     tags:
- *       - Pedidos
+ *       - pedidos
  *     parameters:
  *       - in: path
  *         name: num_pedidos
@@ -102,9 +102,9 @@ router.get("/pedi", (req, res) => {
  *             schema:
  *               type: array
  *               items:
- *                 $ref: "#/components/schemas/Pedidos"
+ *                 $ref: "#/components/schemas/pedidos"
  */
-router.get("/pedi/num_pedidos/:num_pedidos", (req, res) => {
+router.get("/pedidos/num_pedidos/:num_pedidos", (req, res) => {
   const { num_pedidos } = req.params;
   PediSchema.find({ num_pedidos })
     .then((data) => res.json(data))
@@ -116,11 +116,11 @@ router.get("/pedi/num_pedidos/:num_pedidos", (req, res) => {
 // Actualizar un pedido existente
 /**
  * @swagger
- * /api/pedi/{num_pedidos}:
+ * /api/pedidos/{num_pedidos}:
  *   put:
  *     summary: Actualizar un pedido existente
  *     tags:
- *       - Pedidos
+ *       - pedidos
  *     parameters:
  *       - in: path
  *         name: num_pedidos
@@ -169,9 +169,9 @@ router.get("/pedi/num_pedidos/:num_pedidos", (req, res) => {
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Pedido"
+ *               $ref: "#/components/schemas/pedidos"
  */
-router.put("/pedi/:num_pedidos", (req, res) => {
+router.put("/pedidos/:num_pedidos", (req, res) => {
   const { num_pedidos } = req.params;
   const { fecha_pedido, tipo_servicio, estado, articulos } = req.body;
 
@@ -189,11 +189,11 @@ router.put("/pedi/:num_pedidos", (req, res) => {
 // Método para eliminar pedidos
 /**
  * @swagger
- * /api/pedi/{num_pedidos}:
+ * /api/pedidos/{num_pedidos}:
  *   delete:
  *     summary: Eliminar un pedido
  *     tags:
- *       - Pedidos
+ *       - pedidos
  *     parameters:
  *       - in: path
  *         name: num_pedidos
@@ -207,7 +207,7 @@ router.put("/pedi/:num_pedidos", (req, res) => {
  *       404:
  *         description: Pedido no encontrado
  */
-router.delete("/pedi/:num_pedidos", (req, res) => {
+router.delete("/pedidos/:num_pedidos", (req, res) => {
   const { num_pedidos } = req.params;
   PediSchema.findOneAndDelete({ num_pedidos })
     .then((data) => res.json({mensaje:"la colecion fue eliminada correctamente"}))

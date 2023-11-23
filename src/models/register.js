@@ -25,4 +25,4 @@ const registerSchema = mongoose.Schema({
 
 
  
-module.exports = mongoose.model("Registro", registerSchema);
+module.exports = mongoose.model("registros", registerSchema);

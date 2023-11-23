@@ -6,7 +6,7 @@ const registerSchema = require("../models/register");
  * @swagger
  * components:
  *   schemas:
- *     Registro:
+ *     registros:
  *       type: object
  *       properties:
  *         nombres_completos:
@@ -34,11 +34,11 @@ const registerSchema = require("../models/register");
 // Mostrar todos los registros
 /**
  * @swagger
- * /api/register:
+ * /api/registros:
  *   get:
  *     summary: Obtener todos los registros
  *     tags:
- *       - Registro
+ *       - registros
  *     responses:
  *       '200':
  *         description: Lista de todos los registros
@@ -47,9 +47,9 @@ const registerSchema = require("../models/register");
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Registro'
+ *                 $ref: '#/components/schemas/registros'
  */
-router.get("/register", (req, res) => {
+router.get("/registros", (req, res) => {
   registerSchema.find()
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
@@ -58,11 +58,11 @@ router.get("/register", (req, res) => {
 // Mostrar un registro por DNI
 /**
  * @swagger
- * /api/register/{dni}:
+ * /api/registros/{dni}:
  *   get:
  *     summary: Obtener un registro por DNI
  *     tags:
- *       - Registro
+ *       - registros
  *     parameters:
  *       - in: path
  *         name: dni
@@ -76,12 +76,12 @@ router.get("/register", (req, res) => {
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Registro'
+ *               $ref: '#/components/schemas/registros'
  *       '404':
  *         description: Registro no encontrado
  */
 
-router.get("/register/:dni", (req, res) => {
+router.get("/registros/:dni", (req, res) => {
   const { dni } = req.params;
   registerSchema.findOne({ dni })
     .then((data) => res.json(data))
@@ -91,11 +91,11 @@ router.get("/register/:dni", (req, res) => {
 // Actualizar un registro por DNI
 /**
  * @swagger
- * /api/register/{dni}:
+ * /api/registros/{dni}:
  *   put:
  *     summary: Actualizar un registro por DNI
  *     tags:
- *       - Registro
+ *       - registros
  *     parameters:
  *       - in: path
  *         name: dni
@@ -108,7 +108,7 @@ router.get("/register/:dni", (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Registro'
+ *             $ref: '#/components/schemas/registros'
  *     responses:
  *       '200':
  *         description: Registro actualizado correctamente
@@ -116,7 +116,7 @@ router.get("/register/:dni", (req, res) => {
  *         description: Registro no encontrado o no se pudo actualizar
  */
 
-router.put("/register/:dni", (req, res) => {
+router.put("/registros/:dni", (req, res) => {
   const { dni } = req.params;
   const { nombres_completos, telefono, Correo_Electronico } = req.body;
 
@@ -132,24 +132,24 @@ router.put("/register/:dni", (req, res) => {
 // Crear un nuevo registro 
 /**
  * @swagger
- * /api/register:
+ * /api/registros:
  *   post:
  *     summary: Crear un nuevo registro
  *     tags:
- *       - Registro
+ *       - registros
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Registro'
+ *             $ref: '#/components/schemas/registros'
  *     responses:
  *       '200':
  *         description: Nuevo registro creado correctamente
  *       '500':
  *         description: Error al crear el registro
  */
-router.post("/register", (req, res) => {
+router.post("/registros", (req, res) => {
   const registro = registerSchema(req.body);
   registro.save()
     .then((data) => res.json({ mensaje: "Se creó un nuevo registro con éxito" }))
