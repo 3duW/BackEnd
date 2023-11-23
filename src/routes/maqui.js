@@ -11,43 +11,40 @@ const router = express.Router();
  *              properties:
  *                  tipo:
  *                      type: string
- *                      description: saber que equipo o producto               
+ *                      description: descripción del tipo máquina.               
  *                  marca:
  *                      type: string
- *                      description: marca de los produtos
+ *                      description: marca de las máquinas
  *                  estado:
  *                      type: string
- *                      description: modelo de cada mqquina u objeto
+ *                      description: condición actual de la máquina.
  *                  ult_mant:
  *                      type: string
- *                      description: fecha del ultimo mantenimiento del equipo
+ *                      description: fecha del último mantenimiento de la máquina.
  *              required:
  *                  -   tipo
  *                  -   marca
  *                  -   estado
  *                  -   ult_mant
  *              example:
- *                  tipo: sillas
- *                  marca:  lenovo
- *                  estado: V750
+ *                  tipo: lavadora industrial
+ *                  marca:  nivia
+ *                  estado: operativo
  *                  ult_mant:    2023-10-20
  *                  
- *                  
- *                  
- *          
- *              
- *       
+ *     
  */
-//get
+
+//get: Busqueda de la máquina por marca y último mantenimiento
 /**
  * @swagger
  * /api/maquinas:
  *  get:
- *      summary:    Muestra todo el inventario
+ *      summary:    Busqueda general de todas las máquinas.
  *      tags:   [maquinas]
  *      responses:
  *          200:
- *              description: inventario mostrado correctamente
+ *              description: se muestra toda la relación de las máquinas correctamente
  *              content:
  *                  application/json:
  *                      schema:
@@ -55,21 +52,22 @@ const router = express.Router();
  *                      items:
  *                          $ref:   '#components/schemas/maquinas'
  *          404:
- *              description:    No se puede mostrar el tipo de equipo
+ *              description:    No se puede mostrar la relación de máquinas.
  */
 
-//get: Busqueda de equipo por marca y ultimo mantenimiento
+//get: Busqueda de la máquina por marca y último mantenimiento
 router.get("/maquinas", (req, res) => {
     maquimodel.find()
         .then(data => res.json(data))
         .catch((error) => res.json({mensaje: error}))
 });
 
+//get: Busqueda de la máquina por marca y modelo
 /**
  * @swagger
  * /api/maquinas/{marca}/{ult_mant}:
  *   get:
- *     summary: Obtener recursos por marca y modelo.
+ *     summary: Busqueda de las máquinas por marca y último mantenimiento.
  *     tags:
  *       - maquinas
  *     parameters:
@@ -78,25 +76,25 @@ router.get("/maquinas", (req, res) => {
  *         schema:
  *           type: string
  *         required: true
- *         description: Marca de los recursos.
+ *         description: Marca de las máquinas.
  *       - in: path
  *         name: ult_mant
  *         schema:
  *           type: string
  *         required: false
- *         description: Modelo de los recursos (opcional).
+ *         description: Modelo de las máquinas.
  *     responses:
  *       200:
- *         description: Éxito. Devuelve la lista de recursos.
+ *         description: Se encontró la maquina buscada.
  *         content:
  *           application/json:
  *             schema:
  *              $ref:   '#components/schemas/maquinas'
  *       404:
- *         description: No se puede mostrar el tipo de equipo.
+ *         description: No se encontró la máquina solicitada.
 */
 
-//get: Busqueda de producto por marca y modelo
+//get: Busqueda de la máquina por marca y modelo
 router.get("/maquinas/:marca/:ult_mant?", (req, res) => {
     const { marca, ult_mant } = req.params;
 
@@ -124,7 +122,7 @@ router.get("/maquinas/:marca/:ult_mant?", (req, res) => {
  * @swagger
  * /api/maquinas:
  *   post:
- *     summary: Agregar un nuevo equipo
+ *     summary: Agregar una nueva máquina
  *     tags:
  *       - maquinas
  *     requestBody:
@@ -135,13 +133,13 @@ router.get("/maquinas/:marca/:ult_mant?", (req, res) => {
  *             $ref: "#/components/schemas/maquinas"
  *     responses:
  *       201:
- *         description: Nuevo equipo agregado exitosamente
+ *         description: Nueva máquina agregada exitosamente.
  *         content:
  *           application/json:
  *             schema:
  *               $ref: "#/components/schemas/maquinas"
  *       400:
- *         description: Solicitud no válida
+ *         description: Solicitud no válida.
  */
 
 //post
@@ -157,7 +155,7 @@ router.post("/maquinas", (req, res) =>{
  * @swagger
  * /api/maquinas/{marca}:
  *   put:
- *     summary: Busca por marca y permite modificar el estado y su ult_mant.
+ *     summary: Busca por marca y permite modificar el estado y su último mantenimiento.
  *     tags:
  *       - maquinas
  *     parameters:
@@ -182,13 +180,13 @@ router.post("/maquinas", (req, res) =>{
  *                 description: Ultimo mantenimiento realizado al equipo
  *     responses:
  *       200:
- *         description: actualizacion de informacion modificada exitosamente
+ *         description: actualización de informacion modificada exitosamente
  *         content:
  *           application/json:
  *             schema:
  *               $ref: "#/components/schemas/maquinas"
  *       404:
- *         description: Producto no encontrado
+ *         description: No se puede actualizar los datos del equipo. 
  *       500:
  *         description: Error interno del servidor
  */
