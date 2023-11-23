@@ -39,7 +39,7 @@ const router = express.Router();
  *       
  */
 
-//get
+//get: Lectura de los comentarios
 /**
  * @swagger
  * /api/comentarios:
@@ -60,7 +60,7 @@ const router = express.Router();
  */
 
 
-//get
+//get: Lectura de los comentarios
 router.get("/comentarios", (req, res) => {
     comentmodel.find()
         .then(data => res.json(data))
@@ -68,7 +68,7 @@ router.get("/comentarios", (req, res) => {
 });
 
 
-//post
+//post: Opiniones de los clientes
 /**
  * @swagger
  * /api/comentarios:
@@ -95,7 +95,7 @@ router.get("/comentarios", (req, res) => {
 
 
 
-//post - Crear usuario
+//post - Opiniones de los clientes
 router.post("/comentarios", (req, res) =>{
     const comentar = comentmodel(req.body);
     comentar.save()
