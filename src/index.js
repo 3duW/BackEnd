@@ -7,6 +7,9 @@ const sumiRoutes = require("./routes/sumi");
 const hisRoutes = require("./routes/his");
 const horRoutes = require("./routes/hor");
 const contRoutes = require("./routes/cont");
+const pedido = require("./routes/Pedi");
+const Planificacion = require("./routes/planifica");
+const promocion = require("./routes/Promo");
 const inventRoutes = require("./routes/invent");
 const maquiRoutes = require("./routes/maqui");
 const comentRoutes = require("./routes/coment");
@@ -40,12 +43,17 @@ app.use("/api" , facRoutes);
 app.use("/api" , hisRoutes);
 app.use("/api" , horRoutes);
 app.use("/api" , contRoutes);
+<<<<<<< HEAD
 app.use("/api" , sumiRoutes);
+=======
+app.use("/api", pedido);
+app.use("/api", Planificacion);
+app.use("/api", promocion);
+>>>>>>> a8c2e484e9f0821d5019cfa91f45a8f63b28d695
 app.use("/api" , comentRoutes);
 app.use("/api" , inventRoutes);
 app.use("/api" , maquiRoutes);
 app.use("/api" , notifRoutes);
-
  //route
 
 app.use("/api-doc",swaggerUI.serve, swaggerUI.setup(swaggerJSDoc(swaggerConf)))

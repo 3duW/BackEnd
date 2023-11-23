@@ -78,7 +78,7 @@ router.get("/inventarios", (req, res) => {
  * @swagger
  * /api/inventarios/{marca}/{modelo}:
  *   get:
- *     summary: Obtener recursos por marca y modelo.
+ *     summary: Busqueda de productos por marca y modelo.
  *     tags:
  *       - inventarios
  *     parameters:
@@ -93,10 +93,10 @@ router.get("/inventarios", (req, res) => {
  *         schema:
  *           type: string
  *         required: false
- *         description: Modelo de los productos (opcional).
+ *         description: Modelo de los producto.
  *     responses:
  *       200:
- *         description: Éxito. Devuelve la lista de recursos.
+ *         description: Se encontro el producto buscado.
  *         content:
  *           application/json:
  *             schema:
