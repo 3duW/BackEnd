@@ -45,7 +45,7 @@ const router = express.Router();
  * @swagger
  * /api/notificaciones:
  *  get:
- *      summary:    Muestra todo el estado del servicio realizado
+ *      summary:    Muestra todas las notificaciones indicando el estado del servicio realizado
  *      tags:   [notificaciones]
  *      responses:
  *          200:
@@ -57,7 +57,7 @@ const router = express.Router();
  *                      items:
  *                          $ref:   '#components/schemas/notificaciones'
  *          404:
- *              description:    No se puede mostrar el inventario
+ *              description:    No se puede mostrar la notificación.
  */
 
 
@@ -72,7 +72,7 @@ router.get("/notificaciones", (req, res) => {
  * @swagger
  * /api/notificaciones/{num_cliente}:
  *   get:
- *     summary: Busca la información mediante el numero de cliente
+ *     summary: Busca el servicio mediante el numero de cliente
  *     tags: 
  *       - notificaciones
  *     parameters:
@@ -81,10 +81,10 @@ router.get("/notificaciones", (req, res) => {
  *         schema:
  *           type: string
  *         required: true
- *         description: Buscar mediante el num_cliente el servicio
+ *         description: Buscar mediante el num_cliente el servicio.
  *     responses:
  *       200:
- *         description: Servicio Encontrado
+ *         description: Servicio Encontrado.
  *         content:
  *           application/json:
  *             schema:
@@ -92,7 +92,7 @@ router.get("/notificaciones", (req, res) => {
  *               item:
  *                 $ref: "#/components/schemas/notificaciones"
  *       404:
- *         description: No Existe el num_cliente 
+ *         description: No Existe el num_cliente. 
  */
 
 
@@ -110,7 +110,7 @@ router.get("/notificaciones/:num_cliente", (req, res) => {
  * @swagger
  * /api/notificaciones:
  *   post:
- *     summary: Se crea una nueva notificación
+ *     summary: Se crea una nueva notificación de servicio.
  *     tags:
  *       - notificaciones
  *     requestBody:
@@ -121,7 +121,7 @@ router.get("/notificaciones/:num_cliente", (req, res) => {
  *             $ref: "#/components/schemas/notificaciones"
  *     responses:
  *       201:
- *         description: Verificacion y programacion de entrega
+ *         description: Verificacion y programacion del servicio.
  *         content:
  *           application/json:
  *             schema:
