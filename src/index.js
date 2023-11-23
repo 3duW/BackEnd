@@ -16,6 +16,7 @@ const maquiRoutes = require("./routes/maqui");
 const notifRoutes = require("./routes/notif");const registerRoutes = require("./routes/register");
 const planiRoutes = require("./routes/plani");
 const sumiRoutes = require("./routes/sumi");
+const regisRoutes = require("./routes/register");
 const swaggerUI  = require("swagger-ui-express");
 const swaggerJSDoc = require("swagger-jsdoc");
 const path = require("path");
@@ -57,6 +58,7 @@ app.use("/api" , delivRoutes);
 app.use("/api" , inventRoutes);
 app.use("/api" , maquiRoutes);
 app.use("/api" , notifRoutes);
+app.use("/api" , regisRoutes);
 
  //route
 
