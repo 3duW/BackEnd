@@ -23,4 +23,4 @@ const PromoSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model("promos", PromoSchema);
+module.exports = mongoose.model("promociones", PromoSchema);

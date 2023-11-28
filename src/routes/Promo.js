@@ -58,7 +58,7 @@ const PromoSchema = require("../models/Prom");
  *               items:
  *                 $ref: "#/components/schemas/promociones"
  */
-router.get("/promos", (req, res) => {
+router.get("/promociones", (req, res) => {
   PromoSchema.find()
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
@@ -86,7 +86,7 @@ router.get("/promos", (req, res) => {
  *             schema:
  *               $ref: "#/components/schemas/promociones"
  */
-router.get("/promos/:numero_de_promocion", (req, res) => {
+router.get("/promociones/:numero_de_promocion", (req, res) => {
   const { numero_de_promocion } = req.params;
   PromoSchema.find({ numero_de_promocion })
     .then((data) => res.json(data))
@@ -114,7 +114,7 @@ router.get("/promos/:numero_de_promocion", (req, res) => {
  *             schema:
  *               $ref: "#/components/schemas/promociones"
  */
-router.post("/promos", (req, res) =>{
+router.post("/promociones", (req, res) =>{
   const promocion = PromoSchema(req.body);
   promocion.save()
   .then((data)=>res.json({mensaje:"Objeto guardado correctamente"}))
@@ -149,7 +149,7 @@ router.post("/promos", (req, res) =>{
  *             schema:
  *               $ref: "#/components/schemas/promociones"
  */
-router.put("/promos/numero/:numero_de_promocion", (req, res) => {
+router.put("/promociones/numero/:numero_de_promocion", (req, res) => {
   const { numero_de_promocion } = req.params;
   const { nombre_promocion, descripcion, fecha_inicio, fecha_fin } = req.body;
   PromoSchema.findOneAndUpdate(
@@ -181,7 +181,7 @@ router.put("/promos/numero/:numero_de_promocion", (req, res) => {
  *       404:
  *         description: La promoción no fue encontrada
  */
-router.delete("/promos/numero/:numero_de_promocion", (req, res) => {
+router.delete("/promociones/numero/:numero_de_promocion", (req, res) => {
   const { numero_de_promocion } = req.params;
   PromoSchema.findOneAndDelete({ numero_de_promocion })
     .then((data) => res.json({mensaje:"la promocion fue eliminada correctamente"}))
