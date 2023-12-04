@@ -191,7 +191,7 @@ router.put("/pedidos/:num_pedidos", (req, res) => {
  * @swagger
  * /api/pedidos/{num_pedidos}:
  *   delete:
- *     summary: Eliminar un pedido
+ *     summary: Eliminar un pedido si está en estado "Entregado" o "Listo"
  *     tags:
  *       - pedidos
  *     parameters:
@@ -204,13 +204,62 @@ router.put("/pedidos/:num_pedidos", (req, res) => {
  *     responses:
  *       200:
  *         description: Pedido eliminado correctamente
+ *       400:
+ *         description: El pedido no está en estado "Entregado" o "Listo", no se puede eliminar
  *       404:
  *         description: Pedido no encontrado
  */
 router.delete("/pedidos/:num_pedidos", (req, res) => {
   const { num_pedidos } = req.params;
-  PediSchema.findOneAndDelete({ num_pedidos })
-    .then((data) => res.json({mensaje:"la colecion fue eliminada correctamente"}))
-    .catch((error) => res.status(404).json({ message: error }));
+
+  // Estados en los que se permitirá la eliminación
+  const estadosAEliminar = ["Entregado", "Listo"];
+
+  PediSchema.findOne({ num_pedidos })
+    .then((pedido) => {
+      if (!pedido) {
+        return res.status(404).json({ message: "Pedido no encontrado" });
+      }
+
+      // Verificar si el estado del pedido está en los estados permitidos para eliminación
+      if (estadosAEliminar.includes(pedido.estado)) {
+        // Eliminar el pedido si el estado está permitido
+        PediSchema.findOneAndDelete({ num_pedidos })
+          .then(() => res.json({ mensaje: "El pedido fue eliminado correctamente" }))
+          .catch((error) => res.status(500).json({ message: "Error al eliminar el pedido", error }));
+      } else {
+        // Si el estado no está permitido, enviar mensaje de error
+        return res.status(400).json({ message: "El pedido no cumple con el estado para ser eliminado" });
+      }
+    })
+    .catch((error) => res.status(500).json({ message: "Error al buscar el pedido", error }));
 });
+// Método para crear un nuevo pedido
+/**
+ * @swagger
+ * /api/pedidos:
+ *   post:
+ *     summary: Crear nuevo pedido
+ *     tags:
+ *       - pedidos
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/pedidos"
+ *     responses:
+ *       201:
+ *         description: Nuevo pedido creado correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/pedidos"
+ */
+router.post("/pedidos", (req, res) =>{
+  const pedidos = PediSchema(req.body);
+  pedidos.save()
+  .then((data)=>res.json({mensaje:"Objeto guardado correctamente"}))
+  .catch((error)=>res.status({mensaje:error}))
+})
 module.exports = router;

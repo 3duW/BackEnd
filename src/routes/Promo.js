@@ -165,7 +165,7 @@ router.put("/promociones/numero/:numero_de_promocion", (req, res) => {
  * @swagger
  * /api/promociones/numero/{numero_de_promocion}:
  *   delete:
- *     summary: Eliminar promoción por número de promoción
+ *     summary: Eliminar promoción si tiene el nombre "Promoción de verano" o "Promoción de invierno"
  *     tags:
  *       - promociones
  *     parameters:
@@ -178,14 +178,32 @@ router.put("/promociones/numero/:numero_de_promocion", (req, res) => {
  *     responses:
  *       200:
  *         description: Promoción eliminada correctamente
- *       404:
- *         description: La promoción no fue encontrada
+ *       400:
+ *         description: La promoción no cumple con el nombre para ser eliminada o no fue encontrada
  */
 router.delete("/promociones/numero/:numero_de_promocion", (req, res) => {
   const { numero_de_promocion } = req.params;
-  PromoSchema.findOneAndDelete({ numero_de_promocion })
-    .then((data) => res.json({mensaje:"la promocion fue eliminada correctamente"}))
-    .catch((error) => res.status(404).json({ message: error }));
-});
 
+  // Nombres de promociones permitidos para eliminación
+  const nombresAEliminar = ["Promoción de verano", "Promoción de invierno"];
+
+  PromoSchema.findOne({ numero_de_promocion })
+    .then((promocion) => {
+      if (!promocion) {
+        return res.status(404).json({ message: "La promoción no fue encontrada" });
+      }
+
+      // Verificar si el nombre de la promoción está en los permitidos para eliminación
+      if (nombresAEliminar.includes(promocion.nombre_promocion)) {
+        // Eliminar la promoción si el nombre está permitido
+        PromoSchema.findOneAndDelete({ numero_de_promocion })
+          .then(() => res.json({ mensaje: "La promoción fue eliminada correctamente" }))
+          .catch((error) => res.status(500).json({ message: "Error al eliminar la promoción", error }));
+      } else {
+        // Si el nombre no está permitido, enviar mensaje de error
+        return res.status(400).json({ message: "La promoción no cumple con el nombre para ser eliminada" });
+      }
+    })
+    .catch((error) => res.status(500).json({ message: "Error al buscar la promoción", error }));
+});
 module.exports = router;

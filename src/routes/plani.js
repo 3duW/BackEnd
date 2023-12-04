@@ -88,7 +88,22 @@ router.get("/plani", (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/PlanificacionUpdate"
+ *             type: object
+ *             properties:
+ *               cliente:
+ *                 type: string
+ *               fecha_recogida:
+ *                 type: string
+ *                 format: date
+ *               hora_recogida:
+ *                 type: string
+ *                 format: time
+ *               fecha_entrega:
+ *                 type: string
+ *                 format: date
+ *               hora_entrega:
+ *                 type: string
+ *                 format: time
  *     responses:
  *       200:
  *         description: Planificación actualizada correctamente
@@ -99,7 +114,7 @@ router.get("/plani", (req, res) => {
  *       404:
  *         description: La planificación no fue encontrada o no se pudo actualizar
  */
-router.put("/plani/dni/:dni", (req, res) => {
+router.put("/plani/:dni", (req, res) => {
   const { dni } = req.params;
   const { cliente, fecha_recogida, hora_recogida, fecha_entrega, hora_entrega } = req.body;
   PlaniSchema.findOneAndUpdate(
