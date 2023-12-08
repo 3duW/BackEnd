@@ -6,18 +6,19 @@ const PromoSchema = require("../models/Prom");
  * @swagger
  * components:
  *   schemas:
- *        promociones:
- *                  type: object
- *                  properties:
- *                      correo:
- *                          type: string
- *                          description: Correo electronico
- *                  required:
- *                      - correo
- *                  example:
- *                      correo: "VICTORI@GMAIL.COM"
+ *     promociones:
+ *       type: object
+ *       properties:
+ *         correo:
+ *           type: string
+ *           description: Correo electrónico
+ *       required:
+ *         - correo
+ *       example:
+ *         correo: "VICTORI@GMAIL.COM"
+ */
+
 /**
- *
  * @swagger
  * /api/promociones:
  *   post:
