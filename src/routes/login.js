@@ -9,7 +9,7 @@ const loginSchema = require("../models/login");
  *     registros:
  *       type: object
  *       properties:
- *         Correo_Electronico:
+ *         Correo:
  *           type: string
  *           description: Correo electrónico del registro
  *         contraseña:
@@ -17,29 +17,29 @@ const loginSchema = require("../models/login");
  *           description: Contraseña del registro
  *       required:
  *         - Correo
- *         - contraseña
+ *         - password
  */
 // Crear un nuevo registro 
 /**
  * @swagger
- * /api/registros:
+ * /api/logins:
  *   post:
  *     summary: Crear un nuevo registro
  *     tags:
- *       - registros
+ *       - logins
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/registros'
+ *             $ref: '#/components/schemas/logins'
  *     responses:
  *       '200':
- *         description: Nuevo registro creado correctamente
+ *         description: Ingreso correctamente
  *       '500':
- *         description: Error al crear el registro
+ *         description: Error al entrar el login
  */
-router.post("/registros", (req, res) => {
+router.post("/logins", (req, res) => {
   const registro = registerSchema(req.body);
   registro.save()
     .then((data) => res.json({ mensaje: "Se creó un nuevo registro con éxito" }))

@@ -5,7 +5,7 @@ const loginSchema = mongoose.Schema({
         type: String,
         require: true
     },
-    contrase:{
+    password:{
         type: String,
         require: true,
     }     
