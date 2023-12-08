@@ -8,8 +8,6 @@ const comentRoutes = require("./routes/coment");
 const contRoutes = require("./routes/cont");
 const delivRoutes = require("./routes/deliv");
 const facRoutes = require("./routes/fac");
-const hisRoutes = require("./routes/his");
-const horRoutes = require("./routes/hor");
 const pedidoRoutes = require("./routes/Pedi");
 const inventRoutes = require("./routes/invent");
 const maquiRoutes = require("./routes/maqui");
@@ -53,8 +51,6 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(cors());
 app.use("/api" , facRoutes);
-app.use("/api" , hisRoutes);
-app.use("/api" , horRoutes);
 app.use("/api" , contRoutes);
 app.use("/api" , sumiRoutes);
 app.use("/api" , pedidoRoutes);

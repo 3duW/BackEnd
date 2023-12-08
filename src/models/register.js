@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 
 const registerSchema = mongoose.Schema({
-    nombres_completos:{
+    nombre:{
         type: String,
         require: true
     },
@@ -13,7 +13,7 @@ const registerSchema = mongoose.Schema({
         type: String,
         require: true
     },
-    Correo_Electronico:{
+    Correo:{
         type: String,
         require: true
     },

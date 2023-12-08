@@ -8,6 +8,10 @@ const facSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    servicio : {
+        type: String,
+        required: true,
+    },
     monto: {
         type: Number,
         required: true,
