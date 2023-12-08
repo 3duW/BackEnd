@@ -1,6 +1,7 @@
 //llmando los paquetes
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require('cors');
 require("dotenv").config();
 const promoRoutes = require("./routes/Promo");
 const comentRoutes = require("./routes/coment");
@@ -41,8 +42,17 @@ const swaggerConf = {
     apis: [ ` ${path.join(__dirname, "./routes/*.js")} ` ]
 }
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+    next();
+  })
+  
 //middleware
 app.use(express.json());
+app.use(cors());
 app.use("/api" , facRoutes);
 app.use("/api" , hisRoutes);
 app.use("/api" , horRoutes);
@@ -59,6 +69,7 @@ app.use("/api" , notifRoutes);
 app.use("/api" , regisRoutes);
 
  //route
+ 
 
 app.use("/api-doc",swaggerUI.serve, swaggerUI.setup(swaggerJSDoc(swaggerConf)))
 
