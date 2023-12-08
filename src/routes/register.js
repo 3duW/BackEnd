@@ -9,7 +9,7 @@ const registerSchema = require("../models/register");
  *     registros:
  *       type: object
  *       properties:
- *         nombres_completos:
+ *         nombre:
  *           type: string
  *           description: Nombres completos del registro
  *         telefono:
@@ -18,10 +18,10 @@ const registerSchema = require("../models/register");
  *         dni:
  *           type: string
  *           description: DNI del registro
- *         Correo_Electronico:
+ *         Correo:
  *           type: string
  *           description: Correo electrónico del registro
- *         contraseña:
+ *         password:
  *           type: string
  *           description: Contraseña del registro
  *       required:
@@ -29,7 +29,7 @@ const registerSchema = require("../models/register");
  *         - telefono
  *         - dni
  *         - Correo
- *         - contraseña
+ *         - password
  */
 // Mostrar todos los registros
 /**
@@ -118,11 +118,11 @@ router.get("/registros/:dni", (req, res) => {
 
 router.put("/registros/:dni", (req, res) => {
   const { dni } = req.params;
-  const { nombre, telefono, Correo } = req.body;
+  const { nombre, telefono, Correo, password } = req.body;
 
   registerSchema.findOneAndUpdate(
     { dni },
-    { nombre, telefono, Correo },
+    { nombre, telefono, Correo, password },
     { new: true }
   )
     .then((data) => res.json({ mensaje: "Se actualizaron con éxito los datos" }))

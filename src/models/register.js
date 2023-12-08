@@ -17,7 +17,7 @@ const registerSchema = mongoose.Schema({
         type: String,
         require: true
     },
-    contraseña:{
+    password:{
         type: String,
         require: true,
     }     
