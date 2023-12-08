@@ -13,11 +13,11 @@ const registerSchema = mongoose.Schema({
         type: String,
         require: true
     },
-    Correo:{
+    correo:{
         type: String,
         require: true
     },
-    contraseña:{
+    contrase:{
         type: String,
         require: true,
     }     
