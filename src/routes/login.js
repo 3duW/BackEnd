@@ -19,12 +19,12 @@ const loginSchema = require("../models/login");
  *         - Correo
  *         - password
  */
-// Crear un nuevo registro 
+// Ingresa login 
 /**
  * @swagger
  * /api/logins:
  *   post:
- *     summary: Crear un nuevo registro
+ *     summary: Ingresar a login
  *     tags:
  *       - logins
  *     requestBody:
@@ -40,9 +40,9 @@ const loginSchema = require("../models/login");
  *         description: Error al entrar el login
  */
 router.post("/logins", (req, res) => {
-  const registro = registerSchema(req.body);
+  const logi = loginSchema(req.body);
   registro.save()
-    .then((data) => res.json({ mensaje: "Se creó un nuevo registro con éxito" }))
+    .then((data) => res.json({ mensaje: "Se ingresa con éxito" }))
     .catch((error) => res.status(500).json({ mensaje: error }));
 });
 
