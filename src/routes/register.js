@@ -155,5 +155,78 @@ router.post("/registros", (req, res) => {
     .then((data) => res.json({ mensaje: "Se creó un nuevo registro con éxito" }))
     .catch((error) => res.status(500).json({ mensaje: error }));
 });
+/**
+ * @swagger
+ * /api/registros/login:
+ *   post:
+ *     summary: Iniciar sesión verificando correo y contraseña
+ *     tags:
+ *       - registros
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               correo:
+ *                 type: string
+ *                 description: Correo electrónico del registro
+ *               password:
+ *                 type: string
+ *                 description: Contraseña del registro
+ *             required:
+ *               - correo
+ *               - password
+ *     responses:
+ *       '200':
+ *         description: Inicio de sesión exitoso
+ *       '401':
+ *         description: Credenciales incorrectas
+ *       '500':
+ *         description: Error al intentar iniciar sesión
+ */
+router.post("/registros/login", async (req, res) => {
+  const { correo, password } = req.body;
+
+  // Verificar si existe un usuario con el mismo correo electrónico y contraseña
+  const usuario = await registerSchema.findOne({ correo, password });
+
+  if (!usuario) {
+    return res.status(401).json({ mensaje: 'Credenciales incorrectas' });
+  }
+
+  // Si las credenciales son correctas, devuelve un estado 200
+  return res.status(200).json({ mensaje: 'Inicio de sesión exitoso' });
+});
+/**
+ * @swagger
+ * /api/registros/{password}:
+ *   delete:
+ *     summary: Eliminar un suministro por contraseña
+ *     tags:
+ *       - registros
+ *     parameters:
+ *       - in: path
+ *         name: password
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Contraseña del usuario
+ *     responses:
+ *       200:
+ *         description: Suministro eliminado correctamente
+ *       404:
+ *         description: El suministro no fue encontrado
+ */
+router.delete("/registros/:password", (req, res) => {
+  const { password } = req.params;
+
+  registerSchema.findOneAndDelete({ password })
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error }));
+});
+
+
 
 module.exports = router;
