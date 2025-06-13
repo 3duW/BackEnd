@@ -80,3 +80,5 @@ mongoose
         console.error("Error connecting to MongoDB:", error);
 });
 app.listen(port, () => console.log("server listening on port", port));
+
+console.log("URI desde .env:", process.env.MONGODB_URI);
