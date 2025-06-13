@@ -35,7 +35,7 @@ const swaggerConf = {
         },
         servers:[
             {
-                url:"http://localhost:9000"
+                url: `https://${process.env.RENDER_EXTERNAL_HOSTNAME || 'localhost:' + port}`
             }
         ]
     },
@@ -81,4 +81,4 @@ mongoose
 });
 app.listen(port, () => console.log("server listening on port", port));
 
-console.log("URI desde .env:", process.env.MONGODB_URI);
+//console.log("URI desde .env:", process.env.MONGODB_URI);
