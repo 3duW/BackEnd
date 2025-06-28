@@ -18,7 +18,7 @@ const registerSchema = require("../models/register");
  *         dni:
  *           type: string
  *           description: DNI del registro
- *         Correo:
+ *         correo:
  *           type: string
  *           description: Correo electrónico del registro
  *         password:

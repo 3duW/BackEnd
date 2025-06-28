@@ -39,11 +39,18 @@ const loginSchema = require("../models/login");
  *       '500':
  *         description: Error al entrar el login
  */
-router.post("/logins", (req, res) => {
-  const logi = loginSchema(req.body);
-  registro.save()
-    .then((data) => res.json({ mensaje: "Se ingresa con éxito" }))
-    .catch((error) => res.status(500).json({ mensaje: error }));
+router.post("/login", async (req, res) => {
+  const { correo, password } = req.body;
+  try {
+    const usuario = await loginSchema.findOne({ correo, password });
+    if (!usuario) {
+      return res.status(401).json({ mensaje: 'Credenciales incorrectas' });
+    }
+    return res.status(200).json({ mensaje: 'Inicio de sesión exitoso' });
+  } catch (error) {
+    res.status(500).json({ mensaje: error });
+  }
 });
+
 
 module.exports = router;
